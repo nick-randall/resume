@@ -30,7 +30,6 @@ const ArmContainer = styled.div<{
   left: -${props => props.armLength / 2}px;
   animation: ${props => props.animation} ${props => props.duration}s ${props => props.animationTimingFunction} infinite;
   position: absolute;
-  border: green solid thin; 
 `;
 
 const SkeletonArm = styled.div<{ armLength: number }>`
@@ -46,7 +45,7 @@ const FatArm = styled.div<{ armLength: number; armFatness: number; height: numbe
   width: ${props => props.armFatness}px;
   height: ${props => props.height}px;
   margin-top: 50%;
-  background-color: red;
+  background-color: white;
   transform: translateY(calc(-50%)) translateX(-50%);
   border-radius: 1ch;
   top: ${props => props.top}px;
