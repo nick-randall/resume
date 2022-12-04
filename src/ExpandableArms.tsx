@@ -27,9 +27,10 @@ const ArmContainer = styled.div<{
   width: ${props => props.armLength}px;
   height: ${props => props.armLength}px;
   top: ${props => props.top}px;
-  left: -75px;
+  left: -${props => props.armLength / 2}px;
   animation: ${props => props.animation} ${props => props.duration}s ${props => props.animationTimingFunction} infinite;
   position: absolute;
+  border: green solid thin; 
 `;
 
 const SkeletonArm = styled.div<{ armLength: number }>`
@@ -67,8 +68,6 @@ const ExpandableArmsRecursive: FC<ExpandableArmsRecursiveProps> = (props: Expand
     totalNumberRows,
     leftSide,
   } = props;
-  const armTopOffset = armLength / 4;
-  const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
 
   const rotateDoubleClockwise = keyframes`
     0% {
@@ -90,9 +89,8 @@ const ExpandableArmsRecursive: FC<ExpandableArmsRecursiveProps> = (props: Expand
 
   if (currentRowNumber > totalNumberRows) return null;
   const armContainerTop = currentRowNumber > 2 ? armLength * 2 - armLength * 0.5 : armLength * 0.5;
-  console.log(armContainerTop);
   const fatArmTop = currentRowNumber === 0 ? armLength / 2 : armLength;
-  const fatArmLeft = 0; //currentRowNumber >= 4 ? armLength / 2 : 0;
+  const fatArmLeft = 0; 
 
   const fatArmHeight = currentRowNumber === 0 ? armLength : armLength * 2.02;
   let animation = rotateDoubleClockwise;

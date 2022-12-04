@@ -5,13 +5,13 @@ function App() {
   return (
     <div style={{position:"absolute", top: 300, left: 500}}>
       <ExpandableArms
-        armLength={150}
-        armFatness={15}
+        armLength={50}
+        armFatness={10}
         animationDuration={5}
         animationTimingFunction={"linear"}
         foldInExtent={95}
         foldOutExtent={135}
-        totalNumberRows={4}
+        totalNumberRows={6}
       />
     </div>
   );
