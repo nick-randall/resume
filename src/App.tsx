@@ -3,7 +3,7 @@ import ExpandableArms from "./ExpandableArms";
 
 function App() {
   return (
-    <div className="App">
+    <div style={{position:"absolute", top: 300, left: 500}}>
       <ExpandableArms
         armLength={150}
         armFatness={15}
@@ -11,6 +11,7 @@ function App() {
         animationTimingFunction={"linear"}
         foldInExtent={95}
         foldOutExtent={135}
+        totalNumberRows={4}
       />
     </div>
   );
