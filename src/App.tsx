@@ -10,8 +10,8 @@ function App() {
       <ExpandableArms
         armLength={30}
         armFatness={5}
-        animationDuration={5}
-        animationTimingFunction={"cubic-bezier( 0.23, 0.36, 0.15, 1 )"}
+        animationDuration={3}
+        animationTimingFunction="cubic-bezier(0.1, 1.96, 0.4, 0.8)"
         foldInExtent={95}
         foldOutExtent={135}
         totalNumberRows={5}
@@ -21,8 +21,8 @@ function App() {
       <ExpandableArms
         armLength={30}
         armFatness={5}
-        animationDuration={5}
-        animationTimingFunction={"cubic-bezier( 0.23, 0.36, 0.15, 1 )"}
+        animationDuration={3}
+        animationTimingFunction="cubic-bezier(0.1, 1.96, 0.4, 0.8)"
         foldInExtent={95}
         foldOutExtent={135}
         totalNumberRows={5}
