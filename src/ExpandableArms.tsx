@@ -14,7 +14,7 @@ type ExpandableArmsProps = {
 };
 
 type ExpandableArmsRecursiveProps = ExpandableArmsProps & {
-  leftSide: boolean;
+  isLeftArm: boolean;
 };
 
 const ArmContainer = styled.div<{
@@ -65,7 +65,7 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
     animationTimingFunction,
     currentRowNumber = 1,
     totalNumberRows,
-    leftSide,
+    isLeftArm,
     setMovePlatform,
   } = props;
 
@@ -89,14 +89,14 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
 
   const armContainerTop = currentRowNumber > 2 ? armLength * 2 - armLength * 0.5 : armLength * 0.5;
   const fatArmTop = currentRowNumber === 0 ? armLength / 2 : armLength;
-  const isFinalArm = leftSide && currentRowNumber === totalNumberRows;
+  const isFinalArm = isLeftArm && currentRowNumber === totalNumberRows;
 
   const fatArmHeight = currentRowNumber === 0 ? armLength : armLength * 2;
   let animation = rotateDoubleClockwise;
   let rotation = 0;
   const rowNumberIsEven = currentRowNumber % 2 === 1;
 
-  if (leftSide) {
+  if (isLeftArm) {
     animation = rowNumberIsEven ? rotateDoubleClockwise : rotateDoubleAnticlockwise;
     rotation = !rowNumberIsEven ? -foldOutExtent * 2 : foldOutExtent * 2;
   } else {
@@ -160,7 +160,7 @@ const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: E
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <ExpandableArmsRecursive {...props} currentRowNumber={2} leftSide={true} ref={forwardedRef} setMovePlatform={setMovePlatform} />
+          <ExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={forwardedRef} setMovePlatform={setMovePlatform} />
         </SkeletonArm>
       </ArmContainer>
       <ArmContainer
@@ -175,7 +175,7 @@ const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: E
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <ExpandableArmsRecursive {...props} currentRowNumber={2} leftSide={false} />
+          <ExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={false} />
         </SkeletonArm>
       </ArmContainer>
     </>

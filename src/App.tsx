@@ -1,63 +1,35 @@
-import React, { useEffect, useRef, useState } from "react";
-import ExpandableArms from "./ExpandableArms";
+import React from "react";
 import "./global.css";
+import Lift from "./Lift";
 
 function App() {
-  const [platformTop, setPlatformTop] = useState(0);
-  const interval = useRef<NodeJS.Timer>();
-
-  const followTopOfArms = () => {
-    const box = ref.current?.getBoundingClientRect();
-    if (box) setPlatformTop(box.top);
-  };
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!interval.current)
-      interval.current = setInterval(() => {
-        followTopOfArms();
-      }, 1);
-  }, []);
   return (
-    <>
-      <div style={{ position: "absolute", bottom: 0, left: 300 }}>
-        <ExpandableArms
-          ref={ref}
-          armLength={60}
-          armFatness={7}
-          animationDuration={5}
-          animationTimingFunction="ease" //"cubic-bezier(0.1, 1.6, 0.4, 0.8)"
-          foldInExtent={95}
-          foldOutExtent={135}
-          totalNumberRows={5}
-          setMovePlatform={() => {
-            clearInterval(interval.current);
-          }}
-        />
-      </div>
-      <div style={{ position: "absolute", bottom: 0, left: 737 }}>
-        <ExpandableArms
-          armLength={60}
-          armFatness={7}
-          animationDuration={5}
-          animationTimingFunction="ease"//"cubic-bezier(0.1, 1.6, 0.4, 0.8)"
-          foldInExtent={95}
-          foldOutExtent={135}
-          totalNumberRows={5}
-        />
-      </div>
-      <div
-        style={{
-          left: 200,
-          width: 627,
-          height: 137,
-          backgroundColor: "#898989",
-          borderRadius: 4,
-          position: "absolute",
-          top: platformTop,
-          transform: "translateY(-98%)",
-        }}
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 3fr 1fr", height: "100vh", justifyContent: "end" }}>
+      <div />
+    <div style={{height: "100vh", position: "relative"}} >
+      <Lift
+        armFatness={7}
+        armLength={60}
+        foldInExtent={95}
+        foldOutExtent={135}
+        totalNumberRows={5}
+        animationDuration={5}
+        animationTimingFunction={"linear"}
+        platform={
+          <div
+            style={{
+              width: "100%",
+              height: 137,
+              backgroundColor: "#898989",
+              borderRadius: 4,
+              transform: "translateY(-98%)",
+            }}
+          />
+        }
       />
-    </>
+      </div>
+      <div />
+     </div>
   );
 }
 
