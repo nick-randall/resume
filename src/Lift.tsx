@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, forwardRef, useEffect, useRef, useState } from "react";
 import ExpandableArms from "./ExpandableArms";
 
 interface LiftProps {
@@ -10,9 +10,10 @@ interface LiftProps {
   animationDuration: number;
   animationTimingFunction: string;
   platform: JSX.Element;
+  setMovePlatform: () => void
 }
 
-const Lift: FC<LiftProps> = ({
+const Lift = forwardRef<HTMLDivElement, LiftProps>(({
   armFatness,
   armLength,
   animationDuration,
@@ -21,26 +22,27 @@ const Lift: FC<LiftProps> = ({
   foldOutExtent,
   totalNumberRows,
   platform,
-}) => {
-  const [platformTop, setPlatformTop] = useState(0);
-  const interval = useRef<NodeJS.Timer>();
-  const ref = useRef<HTMLDivElement>(null);
+  setMovePlatform
+}, forwardedRef) => {
+  // const [platformTop, setPlatformTop] = useState(0);
+  // const interval = useRef<NodeJS.Timer>();
+  // const ref = useRef<HTMLDivElement>(null);
 
-  const followTopOfArms = () => {
-    const box = ref.current?.getBoundingClientRect();
-    if (box) setPlatformTop(box.top + window.scrollY);
-  };
-  useEffect(() => {
-    if (!interval.current)
-      interval.current = setInterval(() => {
-        followTopOfArms();
-      }, 1);
-  }, []);
+  // const followTopOfArms = () => {
+  //   const box = ref.current?.getBoundingClientRect();
+  //   if (box) setPlatformTop(box.top + window.scrollY);
+  // };
+  // useEffect(() => {
+  //   if (!interval.current)
+  //     interval.current = setInterval(() => {
+  //       followTopOfArms();
+  //     }, 1);
+  // }, []);
   return (
     <>
-        <div style={{ position: "absolute", left: "10%", bottom: 0 }}>
+        <div style={{ position: "absolute", left: "10%"}}>
           <ExpandableArms
-            ref={ref}
+            ref={forwardedRef}
             armLength={armLength}
             armFatness={armFatness}
             animationDuration={animationDuration}
@@ -48,10 +50,10 @@ const Lift: FC<LiftProps> = ({
             foldInExtent={foldInExtent}
             foldOutExtent={foldOutExtent}
             totalNumberRows={totalNumberRows}
-            setMovePlatform={() => clearInterval(interval.current)}
+            setMovePlatform={setMovePlatform}
           />
         </div>
-        <div style={{ position: "absolute", right: "10%", bottom: 0 }}>
+        <div style={{ position: "absolute", right: "10%"}}>
           <ExpandableArms
             armLength={armLength}
             armFatness={armFatness}
@@ -62,10 +64,10 @@ const Lift: FC<LiftProps> = ({
             totalNumberRows={totalNumberRows}
           />
         </div>
-      <div style={{ position: "relative", top: platformTop }}>{platform}</div>
+      {/* <div style={{ position: "relative", top: platformTop }}>{platform}</div> */}
 
     </>
   );
-};
+});
 
 export default Lift;
