@@ -38,7 +38,6 @@ const Lift: FC<LiftProps> = ({
   }, []);
   return (
     <>
-      {/* <div style={{ width: "100vw" }}> */}
         <div style={{ position: "absolute", left: "10%", bottom: 0 }}>
           <ExpandableArms
             ref={ref}
@@ -63,8 +62,8 @@ const Lift: FC<LiftProps> = ({
             totalNumberRows={totalNumberRows}
           />
         </div>
-      {/* </div> */}
       <div style={{ position: "relative", top: platformTop }}>{platform}</div>
+
     </>
   );
 };
