@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { Dispatch, FC, forwardRef, SetStateAction } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
 
 type ExpandableArmsProps = {
@@ -10,6 +10,7 @@ type ExpandableArmsProps = {
   animationTimingFunction: string;
   totalNumberRows: number;
   currentRowNumber?: number;
+  setMovePlatform?: Function; //Dispatch<SetStateAction<boolean>>;
 };
 
 type ExpandableArmsRecursiveProps = ExpandableArmsProps & {
@@ -24,7 +25,6 @@ const ArmContainer = styled.div<{
   duration: number;
   animationTimingFunction: string;
   rotate: number;
-  scale: number;
 }>`
   width: ${props => props.armLength}px;
   height: ${props => props.armLength}px;
@@ -55,7 +55,7 @@ const FatArm = styled.div<{ armLength: number; armFatness: number; height: numbe
   left: ${props => props.left}px;
 `;
 
-const ExpandableArmsRecursive: FC<ExpandableArmsRecursiveProps> = (props: ExpandableArmsRecursiveProps) => {
+const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursiveProps>((props: ExpandableArmsRecursiveProps, forwardedRef) => {
   const {
     armLength,
     armFatness,
@@ -66,6 +66,7 @@ const ExpandableArmsRecursive: FC<ExpandableArmsRecursiveProps> = (props: Expand
     currentRowNumber = 1,
     totalNumberRows,
     leftSide,
+    setMovePlatform,
   } = props;
 
   const rotateDoubleClockwise = keyframes`
@@ -86,27 +87,23 @@ const ExpandableArmsRecursive: FC<ExpandableArmsRecursiveProps> = (props: Expand
     }
   `;
 
-  if (currentRowNumber > totalNumberRows) return null;
   const armContainerTop = currentRowNumber > 2 ? armLength * 2 - armLength * 0.5 : armLength * 0.5;
   const fatArmTop = currentRowNumber === 0 ? armLength / 2 : armLength;
-  const fatArmLeft = 0;
+  const isFinalArm = leftSide && currentRowNumber === totalNumberRows;
 
-  const fatArmHeight = currentRowNumber === 0 ? armLength : armLength * 2.02;
+  const fatArmHeight = currentRowNumber === 0 ? armLength : armLength * 2;
   let animation = rotateDoubleClockwise;
   let rotation = 0;
-  const rowNumberIsOdd = currentRowNumber % 2 === 1;
-  
-  
-  if (leftSide){
-    animation = rowNumberIsOdd ? rotateDoubleClockwise : rotateDoubleAnticlockwise;
-    rotation = !rowNumberIsOdd ? -foldOutExtent * 2 : foldOutExtent * 2;
+  const rowNumberIsEven = currentRowNumber % 2 === 1;
 
+  if (leftSide) {
+    animation = rowNumberIsEven ? rotateDoubleClockwise : rotateDoubleAnticlockwise;
+    rotation = !rowNumberIsEven ? -foldOutExtent * 2 : foldOutExtent * 2;
+  } else {
+    animation = rowNumberIsEven ? rotateDoubleAnticlockwise : rotateDoubleClockwise;
+    rotation = !rowNumberIsEven ? foldOutExtent * 2 : -foldOutExtent * 2;
   }
-  else {
-    animation = rowNumberIsOdd ? rotateDoubleAnticlockwise : rotateDoubleClockwise;
-    rotation = !rowNumberIsOdd ? foldOutExtent * 2 : -foldOutExtent * 2;
-  }
-
+  const ref = isFinalArm ? { ref: forwardedRef } : {};
   return (
     <>
       <ArmContainer
@@ -117,20 +114,20 @@ const ExpandableArmsRecursive: FC<ExpandableArmsRecursiveProps> = (props: Expand
         animation={animation}
         animationTimingFunction={animationTimingFunction}
         rotate={rotation}
-        scale={leftSide ? 0 : 1}
+        onAnimationEnd={isFinalArm && setMovePlatform ? () => setMovePlatform(false) : undefined}
       >
         <SkeletonArm armLength={armLength}>
-          <FatArm armFatness={armFatness} armLength={armLength} height={fatArmHeight} top={fatArmTop} left={fatArmLeft} />
-          <ExpandableArmsRecursive {...props} currentRowNumber={currentRowNumber + 1} />
+          <FatArm armFatness={armFatness} armLength={armLength} height={fatArmHeight} top={fatArmTop} left={0} {...ref} />
+          {currentRowNumber < totalNumberRows && <ExpandableArmsRecursive {...props} currentRowNumber={currentRowNumber + 1} ref={forwardedRef} />}
         </SkeletonArm>
       </ArmContainer>
     </>
   );
-};
-const ExpandableArms: FC<ExpandableArmsProps> = (props: ExpandableArmsProps) => {
-  const { armLength, armFatness, foldInExtent, foldOutExtent, animationDuration, animationTimingFunction } = props;
-  const armTopOffset = armLength / 4;
-  const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
+});
+const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: ExpandableArmsProps, forwardedRef) => {
+  const { armLength, armFatness, foldInExtent, foldOutExtent, animationDuration, animationTimingFunction, setMovePlatform } = props;
+  // const armTopOffset = armLength / 4;
+  // const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
 
   const rotateClockwise = keyframes`
       0% {
@@ -159,12 +156,11 @@ const ExpandableArms: FC<ExpandableArmsProps> = (props: ExpandableArmsProps) => 
         animation={rotateClockwise}
         animationTimingFunction={animationTimingFunction}
         rotate={foldOutExtent}
-        scale={0}
       >
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <ExpandableArmsRecursive {...props} currentRowNumber={2} leftSide={true} />
+          <ExpandableArmsRecursive {...props} currentRowNumber={2} leftSide={true} ref={forwardedRef} setMovePlatform={setMovePlatform} />
         </SkeletonArm>
       </ArmContainer>
       <ArmContainer
@@ -175,7 +171,6 @@ const ExpandableArms: FC<ExpandableArmsProps> = (props: ExpandableArmsProps) => 
         animation={rotateAnticlockwise}
         animationTimingFunction={animationTimingFunction}
         rotate={-foldOutExtent}
-        scale={1}
       >
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
@@ -185,6 +180,6 @@ const ExpandableArms: FC<ExpandableArmsProps> = (props: ExpandableArmsProps) => 
       </ArmContainer>
     </>
   );
-};
+});
 
 export default ExpandableArms;
