@@ -6,7 +6,7 @@ const BottomPlatform = styled.div`
       background-color: #898989;
       border-radius: 4px;
       position: absolute;
-      bottom: 0px;
+      bottom: 16.666666%;
     `
  
 export default BottomPlatform;

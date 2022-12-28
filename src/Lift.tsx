@@ -9,7 +9,6 @@ interface LiftProps {
   totalNumberRows: number;
   animationDuration: number;
   animationTimingFunction: string;
-  platform: JSX.Element;
   setMovePlatform: () => void
 }
 
@@ -21,26 +20,11 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({
   foldInExtent,
   foldOutExtent,
   totalNumberRows,
-  platform,
   setMovePlatform
 }, forwardedRef) => {
-  // const [platformTop, setPlatformTop] = useState(0);
-  // const interval = useRef<NodeJS.Timer>();
-  // const ref = useRef<HTMLDivElement>(null);
-
-  // const followTopOfArms = () => {
-  //   const box = ref.current?.getBoundingClientRect();
-  //   if (box) setPlatformTop(box.top + window.scrollY);
-  // };
-  // useEffect(() => {
-  //   if (!interval.current)
-  //     interval.current = setInterval(() => {
-  //       followTopOfArms();
-  //     }, 1);
-  // }, []);
   return (
     <>
-        <div style={{ position: "absolute", left: "10%"}}>
+        <div style={{ position: "absolute", left: armLength}}>
           <ExpandableArms
             ref={forwardedRef}
             armLength={armLength}
@@ -53,7 +37,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({
             setMovePlatform={setMovePlatform}
           />
         </div>
-        <div style={{ position: "absolute", right: "10%"}}>
+        <div style={{ position: "absolute", right: armLength}}>
           <ExpandableArms
             armLength={armLength}
             armFatness={armFatness}
@@ -64,7 +48,6 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({
             totalNumberRows={totalNumberRows}
           />
         </div>
-      {/* <div style={{ position: "relative", top: platformTop }}>{platform}</div> */}
 
     </>
   );

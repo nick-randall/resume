@@ -5,7 +5,6 @@ import Lift from "./Lift";
 import TopPlatform from "./TopPlatform";
 
 function App() {
-
   const [platformTop, setPlatformTop] = useState(0);
   const interval = useRef<NodeJS.Timer>();
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +21,7 @@ function App() {
   }, []);
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 5fr 1fr", height: "100vh" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "12fr 74fr 12fr", height: "100vh" }}>
       <div />
       <div style={{ height: "100vh", position: "relative" }}>
         <BottomPlatform>
@@ -30,17 +29,18 @@ function App() {
             armFatness={7}
             armLength={60}
             foldInExtent={95}
-            foldOutExtent={145}
+            foldOutExtent={135}
             totalNumberRows={5}
             animationDuration={2}
             animationTimingFunction={"linear"}
-            platform={<TopPlatform />}
             ref={ref}
             setMovePlatform={() => clearInterval(interval.current)}
           />
+          <BottomPlatform />
         </BottomPlatform>
-              <div style={{ position: "relative", top: platformTop }}><TopPlatform /></div>
-
+        <div style={{ position: "relative", top: platformTop }}>
+          <TopPlatform />
+        </div>
       </div>
       <div />
     </div>
