@@ -3,8 +3,10 @@ import BottomPlatform from "./BottomPlatform";
 import "./global.css";
 import Lift from "./Lift";
 import TopPlatform from "./TopPlatform";
+import useMediaQuery from "./useMediaQuery";
 
 function App() {
+  const { deviceType } = useMediaQuery();
   const [platformTop, setPlatformTop] = useState(0);
   const interval = useRef<NodeJS.Timer>();
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +24,7 @@ function App() {
   }, []);
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "12fr 74fr 12fr", height: "100vh" }}>
+    <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr", height: "100vh" }}>
       <div />
       <div style={{ height: "100vh", position: "relative" }}>
         <BottomPlatform>
