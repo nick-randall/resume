@@ -1,4 +1,4 @@
-import { Dispatch, FC, forwardRef, SetStateAction } from "react";
+import { forwardRef } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
 
 type ExpandableArmsProps = {
@@ -10,7 +10,7 @@ type ExpandableArmsProps = {
   animationTimingFunction: string;
   totalNumberRows: number;
   currentRowNumber?: number;
-  setMovePlatform?: Function; //Dispatch<SetStateAction<boolean>>;
+  setMovePlatform?: () => void
 };
 
 type ExpandableArmsRecursiveProps = ExpandableArmsProps & {
@@ -114,7 +114,7 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
         animation={animation}
         animationTimingFunction={animationTimingFunction}
         rotate={rotation}
-        onAnimationEnd={isFinalArm && setMovePlatform ? () => setMovePlatform(false) : undefined}
+        onAnimationEnd={isFinalArm && setMovePlatform ? () => setMovePlatform() : undefined}
       >
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} height={fatArmHeight} top={fatArmTop} left={0} {...ref} />

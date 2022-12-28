@@ -1,4 +1,4 @@
-import { FC, forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef } from "react";
 import ExpandableArms from "./ExpandableArms";
 
 interface LiftProps {

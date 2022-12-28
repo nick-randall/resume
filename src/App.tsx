@@ -18,6 +18,7 @@ function App() {
       interval.current = setInterval(() => {
         followTopOfArms();
       }, 1);
+    window.addEventListener("resize", followTopOfArms);
   }, []);
 
   return (
