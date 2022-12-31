@@ -5,7 +5,6 @@ const TopPlatform = styled.div`
       height: 137px;
       background-color: #898989;
       border-radius: 4px;
-      transform: translateY(-98%);
     `
  
 export default TopPlatform;

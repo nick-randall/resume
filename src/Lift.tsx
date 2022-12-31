@@ -9,7 +9,7 @@ interface LiftProps {
   totalNumberRows: number;
   animationDuration: number;
   animationTimingFunction: string;
-  setMovePlatform: () => void
+  handleAnimationEnd: () => void
 }
 
 const Lift = forwardRef<HTMLDivElement, LiftProps>(({
@@ -20,7 +20,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({
   foldInExtent,
   foldOutExtent,
   totalNumberRows,
-  setMovePlatform
+  handleAnimationEnd
 }, forwardedRef) => {
   return (
     <>
@@ -34,7 +34,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({
             foldInExtent={foldInExtent}
             foldOutExtent={foldOutExtent}
             totalNumberRows={totalNumberRows}
-            setMovePlatform={setMovePlatform}
+            handleAnimationEnd={handleAnimationEnd}
           />
         </div>
         <div style={{ position: "absolute", right: armLength}}>

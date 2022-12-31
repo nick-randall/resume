@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import BottomPlatform from "./BottomPlatform";
 import "./global.css";
+import Hamburger from "./Hamburger";
 import Lift from "./Lift";
+import { LiftedContainer } from "./LiftedContainer";
 import TopPlatform from "./TopPlatform";
 import useMediaQuery from "./useMediaQuery";
 
@@ -37,13 +39,15 @@ function App() {
             animationDuration={2}
             animationTimingFunction={"linear"}
             ref={ref}
-            setMovePlatform={() => clearInterval(interval.current)}
+            handleAnimationEnd={() => clearInterval(interval.current)}
           />
           <BottomPlatform />
         </BottomPlatform>
-        <div style={{ position: "relative", top: platformTop }}>
+        <LiftedContainer top={platformTop}>
+          <Hamburger />
+
           <TopPlatform />
-        </div>
+        </LiftedContainer>
       </div>
       <div />
     </div>

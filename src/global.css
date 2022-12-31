@@ -3,5 +3,13 @@ body {
   background-color: #342B79;
   width: 100%;
   overflow: hidden;
+  font-family: retro_gaming;
 }
+
+@font-face {
+  font-family: retro_gaming;
+  src: url("Retro Gaming.ttf");
+}
+
+
 

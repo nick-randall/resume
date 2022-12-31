@@ -10,7 +10,7 @@ type ExpandableArmsProps = {
   animationTimingFunction: string;
   totalNumberRows: number;
   currentRowNumber?: number;
-  setMovePlatform?: () => void
+  handleAnimationEnd?: () => void
 };
 
 type ExpandableArmsRecursiveProps = ExpandableArmsProps & {
@@ -66,7 +66,7 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
     currentRowNumber = 1,
     totalNumberRows,
     isLeftArm,
-    setMovePlatform,
+    handleAnimationEnd,
   } = props;
 
   const rotateDoubleClockwise = keyframes`
@@ -114,7 +114,7 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
         animation={animation}
         animationTimingFunction={animationTimingFunction}
         rotate={rotation}
-        onAnimationEnd={isFinalArm && setMovePlatform ? () => setMovePlatform() : undefined}
+        onAnimationEnd={isFinalArm && handleAnimationEnd ? () => handleAnimationEnd() : undefined}
       >
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} height={fatArmHeight} top={fatArmTop} left={0} {...ref} />
@@ -125,7 +125,7 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
   );
 });
 const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: ExpandableArmsProps, forwardedRef) => {
-  const { armLength, armFatness, foldInExtent, foldOutExtent, animationDuration, animationTimingFunction, setMovePlatform } = props;
+  const { armLength, armFatness, foldInExtent, foldOutExtent, animationDuration, animationTimingFunction, handleAnimationEnd } = props;
   // const armTopOffset = armLength / 4;
   // const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
 
@@ -160,7 +160,7 @@ const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: E
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <ExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={forwardedRef} setMovePlatform={setMovePlatform} />
+          <ExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={forwardedRef} handleAnimationEnd={handleAnimationEnd} />
         </SkeletonArm>
       </ArmContainer>
       <ArmContainer
