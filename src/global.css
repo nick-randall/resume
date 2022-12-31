@@ -2,13 +2,33 @@ body {
   margin: 0;
   background-color: #342B79;
   width: 100%;
-  overflow: hidden;
+  height: 200vh;
+  overflow-x: hidden;
   font-family: retro_gaming;
 }
 
 @font-face {
   font-family: retro_gaming;
   src: url("Retro Gaming.ttf");
+}
+
+.bump-up-down {
+  animation: bump-up-down 300ms ease;
+}
+
+@keyframes bump-up-down {
+  0% {
+    transform: translateY(0px);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 
