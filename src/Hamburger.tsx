@@ -1,7 +1,9 @@
 import { FC } from "react";
 import styled from "styled-components";
 
-interface HamburgerProps {}
+interface HamburgerProps {
+  onPressed: () => void;
+}
 
 const Bar = styled.div`
   width: 60px;
@@ -9,9 +11,10 @@ const Bar = styled.div`
   background-color: #fff500;
 `;
 
-const Hamburger: FC<HamburgerProps> = () => {
+const Hamburger: FC<HamburgerProps> = ({ onPressed }) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 7}} >
+    //TODO: change onclick to support touchscreens
+    <div style={{ display: "flex", flexDirection: "column", gap: 7, position: "relative" }} onClick={onPressed}>
       <Bar />
       <Bar />
       <Bar />

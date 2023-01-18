@@ -9,22 +9,17 @@ interface LiftProps {
   totalNumberRows: number;
   animationDuration: number;
   animationTimingFunction: string;
-  handleAnimationEnd: () => void
+  handleAnimationEnd: () => void;
 }
 
-const Lift = forwardRef<HTMLDivElement, LiftProps>(({
-  armFatness,
-  armLength,
-  animationDuration,
-  animationTimingFunction,
-  foldInExtent,
-  foldOutExtent,
-  totalNumberRows,
-  handleAnimationEnd
-}, forwardedRef) => {
-  return (
-    <>
-        <div style={{ position: "absolute", left: armLength}}>
+const Lift = forwardRef<HTMLDivElement, LiftProps>(
+  (
+    { armFatness, armLength, animationDuration, animationTimingFunction, foldInExtent, foldOutExtent, totalNumberRows, handleAnimationEnd },
+    forwardedRef
+  ) => {
+    return (
+      <>
+        <div style={{ position: "absolute", left: armLength }}>
           <ExpandableArms
             ref={forwardedRef}
             armLength={armLength}
@@ -37,7 +32,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({
             handleAnimationEnd={handleAnimationEnd}
           />
         </div>
-        <div style={{ position: "absolute", right: armLength}}>
+        <div style={{ position: "absolute", right: armLength }}>
           <ExpandableArms
             armLength={armLength}
             armFatness={armFatness}
@@ -48,9 +43,9 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({
             totalNumberRows={totalNumberRows}
           />
         </div>
-
-    </>
-  );
-});
+      </>
+    );
+  }
+);
 
 export default Lift;

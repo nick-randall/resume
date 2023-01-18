@@ -50,7 +50,6 @@ const FatArm = styled.div<{ armLength: number; armFatness: number; height: numbe
   margin-top: 50%;
   background-color: white;
   transform: translateY(calc(-50%)) translateX(-50%);
-  border-radius: 1ch;
   top: ${props => props.top}px;
   left: ${props => props.left}px;
 `;

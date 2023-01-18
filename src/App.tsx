@@ -7,30 +7,47 @@ import { LiftedContainer } from "./LiftedContainer";
 import Logo from "./Logo";
 import TopPlatform from "./TopPlatform";
 import useMediaQuery from "./useMediaQuery";
+import generateBounceAnimationValues from "./generateBounceAnimationValues";
 
+const bounceAnimationValues = generateBounceAnimationValues({
+  initialFoldInExtent: 95,
+  overreachExtent: 3,
+  reduceBounceSpeed: 1.2,
+  finalFoldOutExtent: 135,
+});
 function App() {
+
+
   const { deviceType } = useMediaQuery();
   const [platformTop, setPlatformTop] = useState(0);
-  const interval = useRef<NodeJS.Timer>();
-  const ref = useRef<HTMLDivElement>(null);
+  const followTopOfArmsCheckInterval = useRef<NodeJS.Timer>();
+  const topOfArmsRef = useRef<HTMLDivElement>(null);
   const platformContainerRef = useRef<HTMLDivElement>(null);
 
+
+
+  const [currBounceAnimationValues, setCurrBounceAnimation] = useState(bounceAnimationValues);
+
   const followTopOfArms = () => {
-    const box = ref.current?.getBoundingClientRect();
+    const box = topOfArmsRef.current?.getBoundingClientRect();
     if (box) setPlatformTop(box.top + window.scrollY);
   };
   useEffect(() => {
-    if (!interval.current)
-      interval.current = setInterval(() => {
+    if (!followTopOfArmsCheckInterval.current)
+      followTopOfArmsCheckInterval.current = setInterval(() => {
         followTopOfArms();
       }, 1);
     window.addEventListener("resize", followTopOfArms);
   }, []);
+
   const handleAnimationEnd = () => {
-    clearInterval(interval.current);
-    if (platformContainerRef.current) {
-      platformContainerRef.current.classList.add("bump-up-down");
+    if (currBounceAnimationValues.length === 2) {
+      clearInterval(followTopOfArmsCheckInterval.current);
     }
+    else {
+      setCurrBounceAnimation(currBounceAnimationValues.slice(1))
+    }
+  
   };
 
   return (
@@ -41,21 +58,22 @@ function App() {
           <Lift
             armFatness={7}
             armLength={60}
-            foldInExtent={95}
-            foldOutExtent={145}
+            foldInExtent={currBounceAnimationValues[0].foldInExtent}
+            foldOutExtent={currBounceAnimationValues[0].foldOutExtent}
             totalNumberRows={4}
-            animationDuration={2}
-            animationTimingFunction={"linear"}
-            ref={ref}
+            animationDuration={currBounceAnimationValues[0].duration}
+            // animationTimingFunction={`cubic-bezier(${animationTimingFunctions.speedSlow})`}
+            animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
+            ref={topOfArmsRef}
             handleAnimationEnd={handleAnimationEnd}
           />
           <BottomPlatform />
         </BottomPlatform>
         <LiftedContainer top={platformTop}>
-          <div ref={platformContainerRef} style={{ marginBottom: 8, width: "100%", backgroundColor: "green" }}>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignContent: "center" }}>
+          <div ref={platformContainerRef} style={{ marginBottom: 8 }}>
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
               <Logo />
-              <Hamburger />
+              <Hamburger onPressed={() => {}} />
             </div>
           </div>
           <TopPlatform />
