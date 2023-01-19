@@ -7,8 +7,8 @@ import { LiftedContainer } from "./LiftedContainer";
 import Logo from "./Logo";
 import TopPlatform from "./TopPlatform";
 import useMediaQuery from "./useMediaQuery";
-import bounceAnimationValues from "./generateBounceAnimationValues";
-import SpaceBetweenRow from "./SpaceBetweenRow";
+import RowSpaceBetween from "./RowSpaceBetween";
+import MenuItem from "./MenuItem";
 
 function App() {
   const { deviceType } = useMediaQuery();
@@ -42,10 +42,15 @@ function App() {
         </BottomPlatform>
         <LiftedContainer top={platformTop}>
           <div style={{ marginBottom: 8 }}>
-            <SpaceBetweenRow>
+            <RowSpaceBetween>
               <Logo />
-              <Hamburger onPressed={() => {}} />
-            </SpaceBetweenRow>
+              {deviceType === "phone" && <Hamburger onPressed={() => {}} />}
+              {deviceType === "laptop" && (
+                <div style={{ color: "white", fontFamily: "DIN", display: "flex" }}>
+                  <MenuItem name="connect" /> <MenuItem name="projects" /> <MenuItem name="frameworks" />
+                </div>
+              )}
+            </RowSpaceBetween>
           </div>
           <TopPlatform />
         </LiftedContainer>

@@ -12,6 +12,11 @@ body {
   src: url("Retro Gaming.ttf");
 }
 
+@font-face {
+  font-family: DIN;
+  src: url("Retro Gaming.ttf");
+}
+
 .bump-up-down {
   animation: bump-up-down 300ms ease;
 }
