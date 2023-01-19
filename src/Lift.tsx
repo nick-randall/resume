@@ -1,24 +1,28 @@
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import ExpandableArms from "./ExpandableArms";
+import bounceAnimationValues from "./generateBounceAnimationValues";
 
 interface LiftProps {
   armFatness: number;
   armLength: number;
   totalNumberRows: number;
-
-  foldInExtent: number;
-  foldOutExtent: number;
-  animationDuration: number;
-  animationTimingFunction: string;
   handleAnimationEnd: () => void;
 }
 
-
 const Lift = forwardRef<HTMLDivElement, LiftProps>(
   (
-    { armFatness, armLength, animationDuration, animationTimingFunction, foldInExtent, foldOutExtent, totalNumberRows, handleAnimationEnd },
+    { armFatness, armLength, totalNumberRows, handleAnimationEnd },
     forwardedRef
   ) => {
+    const [currBounceAnimationValues, setCurrBounceAnimation] = useState(bounceAnimationValues);
+
+    const handleIterationEnd = () => {
+      if (currBounceAnimationValues.length === 1) {
+        handleAnimationEnd();
+      } else {
+        setCurrBounceAnimation(currBounceAnimationValues.slice(1));
+      }
+    };
     return (
       <>
         <div style={{ position: "absolute", left: armLength }}>
@@ -26,22 +30,22 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(
             ref={forwardedRef}
             armLength={armLength}
             armFatness={armFatness}
-            animationDuration={animationDuration}
-            animationTimingFunction={animationTimingFunction} //"cubic-bezier(0.1, 1.6, 0.4, 0.8)"
-            foldInExtent={foldInExtent}
-            foldOutExtent={foldOutExtent}
+            foldInExtent={currBounceAnimationValues[0].foldInExtent}
+            foldOutExtent={currBounceAnimationValues[0].foldOutExtent}
+            animationDuration={currBounceAnimationValues[0].animationDuration}
+            animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
             totalNumberRows={totalNumberRows}
-            handleAnimationEnd={handleAnimationEnd}
+            handleAnimationEnd={handleIterationEnd}
           />
         </div>
         <div style={{ position: "absolute", right: armLength }}>
           <ExpandableArms
             armLength={armLength}
             armFatness={armFatness}
-            animationDuration={animationDuration}
-            animationTimingFunction={animationTimingFunction} //"cubic-bezier(0.1, 1.6, 0.4, 0.8)"
-            foldInExtent={foldInExtent}
-            foldOutExtent={foldOutExtent}
+            foldInExtent={currBounceAnimationValues[0].foldInExtent}
+            foldOutExtent={currBounceAnimationValues[0].foldOutExtent}
+            animationDuration={currBounceAnimationValues[0].animationDuration}
+            animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
             totalNumberRows={totalNumberRows}
           />
         </div>

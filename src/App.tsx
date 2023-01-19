@@ -32,11 +32,8 @@ function App() {
   }, []);
 
   const handleAnimationEnd = () => {
-    if (currBounceAnimationValues.length === 2) {
-      clearInterval(followTopOfArmsCheckInterval.current);
-    } else {
-      setCurrBounceAnimation(currBounceAnimationValues.slice(1));
-    }
+    clearInterval(followTopOfArmsCheckInterval.current);
+
   };
 
   return (
@@ -47,11 +44,7 @@ function App() {
           <Lift
             armFatness={7}
             armLength={60}
-            foldInExtent={currBounceAnimationValues[0].foldInExtent}
-            foldOutExtent={currBounceAnimationValues[0].foldOutExtent}
             totalNumberRows={4}
-            animationDuration={currBounceAnimationValues[0].animationDuration}
-            animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
             ref={topOfArmsRef}
             handleAnimationEnd={handleAnimationEnd}
           />
