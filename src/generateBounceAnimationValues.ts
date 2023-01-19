@@ -1,21 +1,15 @@
-const isLessThanOne = (num: number) => (num < 0.5 && num > 0) || (num > -0.5 && num < 0);
-
 const durationConstant = 0.02;
 
+const isLessThanOne = (num: number) => (num < 0.5 && num > 0) || (num > -0.5 && num < 0);
+
 const getDuration = (start: number, end: number) => (end - start < 0 ? (start - end) * durationConstant : (end - start) * durationConstant);
+
 
 interface BounceAnimationProps {
   initialFoldInExtent: number;
   finalFoldOutExtent: number;
   overreachExtent: number;
   reduceBounceSpeed: number;
-}
-
-interface BounceAnimationPart {
-  foldInExtent: number;
-  foldOutExtent: number;
-  animationTimingFunction: string;
-  duration: number;
 }
 
 const animationTimingFunctions = {
@@ -29,7 +23,7 @@ const animationTimingFunctions = {
 };
 
 let extentPairs = [];
-const bounceAnimationParts: BounceAnimationPart[] = [];
+const bounceAnimationParts: LiftAnimationProps[] = [];
 const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   const { initialFoldInExtent, overreachExtent, reduceBounceSpeed, finalFoldOutExtent } = props;
   let currExtent = overreachExtent / reduceBounceSpeed;
@@ -37,7 +31,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   bounceAnimationParts.push({
     foldInExtent: initialFoldInExtent,
     foldOutExtent: finalFoldOutExtent + currExtent,
-    duration: getDuration(initialFoldInExtent, finalFoldOutExtent + overreachExtent),
+    animationDuration: getDuration(initialFoldInExtent, finalFoldOutExtent + overreachExtent),
     animationTimingFunction: animationTimingFunctions.speedSlow,
   });
 
@@ -49,7 +43,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
     bounceAnimationParts.push({
       foldInExtent: prevExtent + finalFoldOutExtent,
       foldOutExtent: currExtent + finalFoldOutExtent,
-      duration: getDuration(prevExtent, currExtent),
+      animationDuration: getDuration(prevExtent, currExtent),
       animationTimingFunction: animationTimingFunctions.easeOut,
     });
   }

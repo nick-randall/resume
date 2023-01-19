@@ -27,7 +27,7 @@ function App() {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
         followTopOfArms();
-      }, 10);
+      }, 1);
     window.addEventListener("resize", followTopOfArms);
   }, []);
 
@@ -50,7 +50,7 @@ function App() {
             foldInExtent={currBounceAnimationValues[0].foldInExtent}
             foldOutExtent={currBounceAnimationValues[0].foldOutExtent}
             totalNumberRows={4}
-            animationDuration={currBounceAnimationValues[0].duration}
+            animationDuration={currBounceAnimationValues[0].animationDuration}
             animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
             ref={topOfArmsRef}
             handleAnimationEnd={handleAnimationEnd}

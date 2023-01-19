@@ -4,13 +4,15 @@ import ExpandableArms from "./ExpandableArms";
 interface LiftProps {
   armFatness: number;
   armLength: number;
+  totalNumberRows: number;
+
   foldInExtent: number;
   foldOutExtent: number;
-  totalNumberRows: number;
   animationDuration: number;
   animationTimingFunction: string;
   handleAnimationEnd: () => void;
 }
+
 
 const Lift = forwardRef<HTMLDivElement, LiftProps>(
   (
