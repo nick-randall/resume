@@ -1,4 +1,8 @@
-const isLessThanOne = (num: number) => (num < 1 && num > 0) || (num > -1 && num < 0);
+const isLessThanOne = (num: number) => (num < 0.5 && num > 0) || (num > -0.5 && num < 0);
+
+const durationConstant = 0.02;
+
+const getDuration = (start: number, end: number) => (end - start < 0 ? (start - end) * durationConstant : (end - start) * durationConstant);
 
 interface BounceAnimationProps {
   initialFoldInExtent: number;
@@ -15,18 +19,14 @@ interface BounceAnimationPart {
 }
 
 const animationTimingFunctions = {
-  pop: "0.8, 1.6, 1, 0.8",
-  extremePop: "0.1, 1.6, 0.4, 0.8",
-  speedSlow: "0.64, 0.45, 0.44, 1.3",
-  speedSlow2: "0.64, 0.45, 0.44, 0.8",
+  pop: "cubic-bezier(0.8, 1.6, 1, 0.8)",
+  extremePop: "cubic-bezier(0.1, 1.6, 0.4, 0.8)",
+  speedSlow: "cubic-bezier(0.64, 0.45, 0.44, 1)",
+  speedSlow2: "cubic-bezier(0.64, 0.45, 0.44, 0.44)",
   easeOut: "ease-out",
   ease: "ease",
-  linear: "linear"
+  linear: "linear",
 };
-
-const durationConstant = 0.02;
-
-const getDuration = (start: number, end: number) => (end - start < 0 ? (start - end) * durationConstant : (end - start) * durationConstant);
 
 let extentPairs = [];
 const bounceAnimationParts: BounceAnimationPart[] = [];
@@ -38,7 +38,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
     foldInExtent: initialFoldInExtent,
     foldOutExtent: finalFoldOutExtent + currExtent,
     duration: getDuration(initialFoldInExtent, finalFoldOutExtent + overreachExtent),
-    animationTimingFunction: animationTimingFunctions.pop
+    animationTimingFunction: animationTimingFunctions.speedSlow,
   });
 
   extentPairs = [initialFoldInExtent, finalFoldOutExtent + overreachExtent];
@@ -50,12 +50,16 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
       foldInExtent: prevExtent + finalFoldOutExtent,
       foldOutExtent: currExtent + finalFoldOutExtent,
       duration: getDuration(prevExtent, currExtent),
-      animationTimingFunction: animationTimingFunctions.pop
+      animationTimingFunction: animationTimingFunctions.easeOut,
     });
   }
-  console.log(bounceAnimationParts)
-  return bounceAnimationParts
-  // return extentPairs;
+  console.log(bounceAnimationParts);
+  return bounceAnimationParts;
 };
 
-export default generateBounceAnimationValues;
+export default generateBounceAnimationValues({
+  initialFoldInExtent: 95,
+  overreachExtent: 8,
+  reduceBounceSpeed: 1.3,
+  finalFoldOutExtent: 135,
+});

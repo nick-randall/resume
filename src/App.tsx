@@ -7,24 +7,15 @@ import { LiftedContainer } from "./LiftedContainer";
 import Logo from "./Logo";
 import TopPlatform from "./TopPlatform";
 import useMediaQuery from "./useMediaQuery";
-import generateBounceAnimationValues from "./generateBounceAnimationValues";
+import bounceAnimationValues from "./generateBounceAnimationValues";
 
-const bounceAnimationValues = generateBounceAnimationValues({
-  initialFoldInExtent: 95,
-  overreachExtent: 3,
-  reduceBounceSpeed: 1.2,
-  finalFoldOutExtent: 135,
-});
+
 function App() {
-
-
   const { deviceType } = useMediaQuery();
   const [platformTop, setPlatformTop] = useState(0);
   const followTopOfArmsCheckInterval = useRef<NodeJS.Timer>();
   const topOfArmsRef = useRef<HTMLDivElement>(null);
   const platformContainerRef = useRef<HTMLDivElement>(null);
-
-
 
   const [currBounceAnimationValues, setCurrBounceAnimation] = useState(bounceAnimationValues);
 
@@ -36,18 +27,16 @@ function App() {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
         followTopOfArms();
-      }, 1);
+      }, 10);
     window.addEventListener("resize", followTopOfArms);
   }, []);
 
   const handleAnimationEnd = () => {
     if (currBounceAnimationValues.length === 2) {
       clearInterval(followTopOfArmsCheckInterval.current);
+    } else {
+      setCurrBounceAnimation(currBounceAnimationValues.slice(1));
     }
-    else {
-      setCurrBounceAnimation(currBounceAnimationValues.slice(1))
-    }
-  
   };
 
   return (
@@ -62,7 +51,6 @@ function App() {
             foldOutExtent={currBounceAnimationValues[0].foldOutExtent}
             totalNumberRows={4}
             animationDuration={currBounceAnimationValues[0].duration}
-            // animationTimingFunction={`cubic-bezier(${animationTimingFunctions.speedSlow})`}
             animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
             ref={topOfArmsRef}
             handleAnimationEnd={handleAnimationEnd}
