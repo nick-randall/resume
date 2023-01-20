@@ -32,7 +32,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
     foldInExtent: initialFoldInExtent,
     foldOutExtent: finalFoldOutExtent + currExtent,
     animationDuration: getDuration(initialFoldInExtent, finalFoldOutExtent + overreachExtent),
-    animationTimingFunction: animationTimingFunctions.speedSlow,
+    animationTimingFunction: animationTimingFunctions.easeOut,
   });
 
   extentPairs = [initialFoldInExtent, finalFoldOutExtent + overreachExtent];
@@ -54,6 +54,6 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
 export default generateBounceAnimationValues({
   initialFoldInExtent: 95,
   overreachExtent: 8,
-  reduceBounceSpeed: 1.3,
+  reduceBounceSpeed: 1.35,
   finalFoldOutExtent: 135,
 });

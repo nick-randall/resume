@@ -46,13 +46,21 @@ function App() {
               <Logo />
               {deviceType === "phone" && <Hamburger onPressed={() => {}} />}
               {deviceType === "laptop" && (
-                <div style={{ color: "white", fontFamily: "DIN", display: "flex" }}>
+                <div style={{ display: "flex" }}>
                   <MenuItem name="connect" /> <MenuItem name="projects" /> <MenuItem name="frameworks" />
                 </div>
               )}
             </RowSpaceBetween>
           </div>
-          <TopPlatform />
+          <TopPlatform>
+            <div>
+              NICHOLAS
+              <br />
+              RANDALL
+              <br />
+              <div style={{fontFamily: "DIN",fontSize: 15, color: "white"}}>SOFTWARE DEVELOPER</div>
+            </div>
+          </TopPlatform>
         </LiftedContainer>
       </div>
       <div />
