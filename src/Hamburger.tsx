@@ -6,7 +6,7 @@ interface HamburgerProps {
 }
 
 const Bar = styled.div`
-  width: 60px;
+  width: 45px;
   height: 4px;
   background-color: #fff500;
 `;

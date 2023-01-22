@@ -6,3 +6,5 @@ type LiftAnimationProps = {
   animationTimingFunction: string;
   animationDuration: number;
 }
+
+type Device = "phone" | "laptop";

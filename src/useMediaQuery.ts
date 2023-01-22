@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 
-type Device = "phone" | "laptop";
 
 const useMediaQuery = () => {
   const [deviceType, setDeviceType] = useState<Device>("phone");

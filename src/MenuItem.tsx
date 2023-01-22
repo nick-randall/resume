@@ -10,7 +10,7 @@ const MenuItem: FC<MenuItemProps> = ({ name }) => {
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "space-apart",
         alignItems: "center",
         paddingLeft: 30,
         color: "white",

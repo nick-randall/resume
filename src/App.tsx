@@ -24,7 +24,7 @@ function App() {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
         followTopOfArms();
-      }, 1);
+      }, 20);
     window.addEventListener("resize", followTopOfArms);
   }, []);
 
@@ -36,10 +36,15 @@ function App() {
     <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr", height: "100vh" }}>
       <div />
       <div style={{ height: "100vh", position: "relative" }}>
-        <BottomPlatform>
+        <BottomPlatform deviceType={deviceType}>
           <Lift armFatness={7} armLength={60} totalNumberRows={4} ref={topOfArmsRef} handleAnimationEnd={handleAnimationEnd} />
-          <BottomPlatform />
+
+          <BottomPlatform deviceType={deviceType} style={{display: "flex", justifyContent: "center"}}>
+           <> <MenuItem name="connect" /> <MenuItem name="projects" /> <MenuItem name="frameworks" /></>
+               
+          </BottomPlatform>
         </BottomPlatform>
+
         <LiftedContainer top={platformTop}>
           <div style={{ marginBottom: 8 }}>
             <RowSpaceBetween>
@@ -58,7 +63,9 @@ function App() {
               <br />
               RANDALL
               <br />
-              <div style={{fontFamily: "DIN",fontSize: 15, color: "white"}}>SOFTWARE DEVELOPER</div>
+              <div style={{ fontFamily: "DIN", fontSize: 15, color: "white", padding: 5 }}>
+                SOFTWARE <br /> DEVELOPER
+              </div>
             </div>
           </TopPlatform>
         </LiftedContainer>
