@@ -58,13 +58,14 @@ function App() {
             </RowSpaceBetween>
           </div>
           <TopPlatform>
-            <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-            <div style={{padding: 0, lineHeight: 1 }}>NICK</div>  
-            <div style={{padding: 0, lineHeight: 1 }}>RANDALL</div> 
-            <div style= {{height: "0.5rem"}}></div>
-            <div style={{ fontFamily: "DIN", fontSize: 15, color: "white", padding: 10 }}>SOFTWARE</div>   
-            <div style={{ fontFamily: "DIN", fontSize: 15, color: "white", padding: 10 }}>DEVELOPER</div>  
-                 
+            <div style={{lineHeight:1}}>
+              NICHOLAS
+              <br />
+              RANDALL
+              <br />
+              <div style={{ fontFamily: "DIN", fontSize: 15, color: "white", padding: 5 }}>
+                SOFTWARE <br /> DEVELOPER
+              </div>
             </div>
           </TopPlatform>
         </LiftedContainer>
