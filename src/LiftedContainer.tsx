@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
-interface LiftedContainerProps  {
+interface LiftedContainerProps {
   top: number;
 }
 
-export const LiftedContainer = styled.div<LiftedContainerProps>`
-  position: relative; 
-  top: ${props => props.top}px; 
+export const LiftedContainer = styled.div.attrs<LiftedContainerProps>(props => ({
+  style: { transform: `translateY(calc(-98% + ${props.top}px)` },
+}))<LiftedContainerProps>`
+  position: relative;
+
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   transform: translateY(-98%);
 `;
