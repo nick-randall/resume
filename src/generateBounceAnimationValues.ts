@@ -4,7 +4,6 @@ const isLessThanOne = (num: number) => (num < 0.5 && num > 0) || (num > -0.5 && 
 
 const getDuration = (start: number, end: number) => (end - start < 0 ? (start - end) * durationConstant : (end - start) * durationConstant);
 
-
 interface BounceAnimationProps {
   initialFoldInExtent: number;
   finalFoldOutExtent: number;
@@ -23,12 +22,12 @@ const animationTimingFunctions = {
 };
 
 let extentPairs = [];
-const bounceAnimationParts: LiftAnimationProps[] = [];
+const iterations: LiftAnimationProps[] = [];
 const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   const { initialFoldInExtent, overreachExtent, reduceBounceSpeed, finalFoldOutExtent } = props;
   let currExtent = overreachExtent / reduceBounceSpeed;
 
-  bounceAnimationParts.push({
+  iterations.push({
     foldInExtent: initialFoldInExtent,
     foldOutExtent: finalFoldOutExtent + currExtent,
     animationDuration: getDuration(initialFoldInExtent, finalFoldOutExtent + overreachExtent),
@@ -40,19 +39,22 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
     let prevExtent = currExtent;
     currExtent = (currExtent / reduceBounceSpeed) * -1;
     extentPairs.push(currExtent + finalFoldOutExtent);
-    bounceAnimationParts.push({
+    iterations.push({
       foldInExtent: prevExtent + finalFoldOutExtent,
       foldOutExtent: currExtent + finalFoldOutExtent,
       animationDuration: getDuration(prevExtent, currExtent),
       animationTimingFunction: animationTimingFunctions.easeOut,
     });
   }
-  console.log(bounceAnimationParts);
-  return bounceAnimationParts;
+  const original = { foldInExtent: initialFoldInExtent, foldOutExtent: initialFoldInExtent, animationDuration: 1, animationTimingFunction: "" };
+
+  iterations.unshift(original);
+  console.log(iterations);
+  return iterations;
 };
 
 export default generateBounceAnimationValues({
-  initialFoldInExtent: 95,
+  initialFoldInExtent: 100,
   overreachExtent: 20,
   reduceBounceSpeed: 1.3,
   finalFoldOutExtent: 135,
