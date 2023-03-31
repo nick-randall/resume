@@ -7,8 +7,8 @@ import { LiftedContainer } from "./LiftedContainer";
 import Logo from "./Logo";
 import TopPlatform from "./TopPlatform";
 import useMediaQuery from "./useMediaQuery";
-import RowSpaceBetween from "./RowSpaceBetween";
 import MenuItem from "./MenuItem";
+import MenuTriple from "./MenuTriple";
 
 function App() {
   const { deviceType } = useMediaQuery();
@@ -36,29 +36,23 @@ function App() {
     <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr", height: "100vh" }}>
       <div />
       <div style={{ height: "100vh", position: "relative" }}>
-        <BottomPlatform deviceType={deviceType}>
+        <BottomPlatform className="bottom-align">
           <Lift armFatness={7} armLength={60} totalNumberRows={4} ref={topOfArmsRef} handleAnimationEnd={handleAnimationEnd} />
-
-          <BottomPlatform deviceType={deviceType} style={{display: "flex", justifyContent: "center"}}>
-           <> <MenuItem name="connect" /> <MenuItem name="projects" /> <MenuItem name="frameworks" /></>
-               
+          <BottomPlatform className="flex-column justify-center align-center">
+            <MenuTriple />
           </BottomPlatform>
         </BottomPlatform>
 
         <LiftedContainer top={platformTop}>
           <div style={{ marginBottom: 8 }}>
-            <RowSpaceBetween>
+            <div className="flex-row space-between align-end">
               <Logo />
               {deviceType === "phone" && <Hamburger onPressed={() => {}} />}
-              {deviceType === "laptop" && (
-                <div style={{ display: "flex" }}>
-                  <MenuItem name="connect" /> <MenuItem name="projects" /> <MenuItem name="frameworks" />
-                </div>
-              )}
-            </RowSpaceBetween>
+              {deviceType === "laptop" && <MenuTriple />}
+            </div>
           </div>
           <TopPlatform>
-            <div style={{lineHeight:1}}>
+            <div style={{ lineHeight: 1 }}>
               NICHOLAS
               <br />
               RANDALL
