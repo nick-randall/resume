@@ -1,7 +1,6 @@
 import { FC } from "react";
 import HomePage from "./HomePage";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { Transition } from "react-transition-group";
 import FrameworksPage from "./FrameworksPage";
 
 interface AppProps {}

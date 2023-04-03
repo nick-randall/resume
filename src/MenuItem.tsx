@@ -1,14 +1,19 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Dispatch, FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { pageFadeDuration } from "./constants";
 
 interface MenuItemProps {
   name: string;
-  onClick?: () => void;
+  setExitingPage: Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MenuItem: FC<MenuItemProps> = ({ name, onClick }) => {
+const MenuItem: FC<MenuItemProps> = ({ name, setExitingPage }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    setExitingPage(true);
+    setTimeout(() => navigate(`/${name}`), pageFadeDuration);
+  };
   return (
-    <Link to={`/${name}`}>
     <div
       style={{
         display: "flex",
@@ -18,13 +23,13 @@ const MenuItem: FC<MenuItemProps> = ({ name, onClick }) => {
         color: "white",
         fontFamily: "DIN",
         justifyContent: "space-between",
-        height: "3.1rem"
+        height: "3.1rem",
       }}
+      onClick={handleClick}
     >
       <img src={`./${name}.png`} className="menu-icon" alt={name} />
       <div className="menu-text">{name}</div>
     </div>
-    </Link>
   );
 };
 

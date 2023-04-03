@@ -1,0 +1,1 @@
+export const pageFadeDuration = 1000;

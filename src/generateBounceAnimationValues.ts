@@ -1,6 +1,6 @@
-const durationConstant = 0.02;
+const durationConstant = 0.015;
 
-const isLessThanOne = (num: number) => (num < 0.5 && num > 0) || (num > -0.5 && num < 0);
+const currExtentisLessThanOne = (num: number) => (num < 0.5 && num > 0) || (num > -0.5 && num < 0);
 
 const getDuration = (start: number, end: number) => (end - start < 0 ? (start - end) * durationConstant : (end - start) * durationConstant);
 
@@ -36,7 +36,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   });
 
   extentPairs = [initialFoldInExtent, finalFoldOutExtent + overreachExtent];
-  while (!isLessThanOne(currExtent)) {
+  while (!currExtentisLessThanOne(currExtent)) {
     let prevExtent = currExtent;
     currExtent = (currExtent / reduceBounceSpeed) * -1;
     extentPairs.push(currExtent + finalFoldOutExtent);
@@ -47,7 +47,13 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
       animationTimingFunction: animationTimingFunctions.easeOut,
     });
   }
-  const original = { foldInExtent: initialFoldInExtent, foldOutExtent: initialFoldInExtent, animationDuration: initialDelay, animationTimingFunction: "" };
+  iterations[0].animationDuration = 0.7
+  const original = {
+    foldInExtent: initialFoldInExtent,
+    foldOutExtent: initialFoldInExtent,
+    animationDuration: initialDelay,
+    animationTimingFunction: "",
+  };
 
   iterations.unshift(original);
   console.log(iterations);
