@@ -9,10 +9,10 @@ const App: FC<AppProps> = () => {
   return (
     <Router>
       <Routes>
-        <Route path="*" element={<HomePage className="" />} />;
-        <Route path="/connect" element={<FrameworksPage />} />;
-        <Route path="/frameworks" element={<FrameworksPage />} />;
-        <Route path="/projects" element={<FrameworksPage />} />;
+        <Route path="/" element={<HomePage className="" key={document.location.href} />} />;
+        <Route path="/connect" element={<FrameworksPage key={document.location.href} />} />;
+        <Route path="/frameworks" element={<FrameworksPage key={document.location.href} />} />;
+        <Route path="/projects" element={<FrameworksPage />} key={document.location.href} />;
       </Routes>
     </Router>
   );

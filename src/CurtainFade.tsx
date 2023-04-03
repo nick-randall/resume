@@ -4,10 +4,9 @@ import { pageFadeDuration } from "./constants";
 
 interface CurtainFadeProps {
   children: JSX.Element;
-  exitingPage: boolean;
 }
 
-const CurtainFade: FC<CurtainFadeProps> = ({ children, exitingPage }) => {
+const CurtainFade: FC<CurtainFadeProps> = ({ children }) => {
   const curtainOpacity = {
     unmounted: 0,
     entering: 0,
@@ -15,9 +14,8 @@ const CurtainFade: FC<CurtainFadeProps> = ({ children, exitingPage }) => {
     exiting: 1,
     exited: 0,
   };
-console.log(exitingPage)
   return (
-    <Transition timeout={0} in={!exitingPage} appear={true}>
+    <Transition timeout={0} in={true} appear={true}>
       {state => {console.log(state); return  <div style={{ opacity: curtainOpacity[state], transition: `${pageFadeDuration}ms` }}>{children}</div>}}
     </Transition>
   );

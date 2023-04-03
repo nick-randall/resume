@@ -42,10 +42,8 @@ const HomePage: FC<HomePageProps> = ({ className }) => {
     clearInterval(followTopOfArmsCheckInterval.current);
   };
 
-  const [exitingPage, setExitingPage] = useState(false);
-
   return (
-    <CurtainFade exitingPage={exitingPage}>
+    <CurtainFade >
       <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr", height: "100vh" }}>
         <div />
         <div style={{ height: "100vh", position: "relative" }}>
@@ -55,7 +53,7 @@ const HomePage: FC<HomePageProps> = ({ className }) => {
               className="flex-column justify-center align-center"
               style={deviceType === "laptop" ? { width: "200%", left: "-50%" } : {}}
             >
-              {deviceType === "phone" && <MenuTriple setExitingPage={setExitingPage}/>}
+              {deviceType === "phone" && <MenuTriple />}
             </BottomPlatform>
           </BottomPlatform>
 
@@ -64,7 +62,7 @@ const HomePage: FC<HomePageProps> = ({ className }) => {
               <div className="flex-row space-between align-end">
                 <Logo />
                 {deviceType === "phone" && <Hamburger onPressed={() => {}} />}
-                {deviceType === "laptop" && <MenuTriple setExitingPage={setExitingPage}/>}
+                {deviceType === "laptop" && <MenuTriple />}
               </div>
             </div>
             <TopPlatform>

@@ -2,15 +2,14 @@ import { Dispatch, FC } from "react";
 import MenuItem from "./MenuItem";
 
 interface MenuTripleProps {
-  setExitingPage: Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MenuTriple: FC<MenuTripleProps> = ({setExitingPage}) => {
+const MenuTriple: FC<MenuTripleProps> = ({}) => {
   return (
     <div className="flex-row">
-      <MenuItem name="connect" setExitingPage={setExitingPage} />
-      <MenuItem name="projects" setExitingPage={setExitingPage} />
-      <MenuItem name="frameworks" setExitingPage={setExitingPage} />
+      <MenuItem name="connect" />
+      <MenuItem name="projects" />
+      <MenuItem name="frameworks" />
     </div>
   );
 };
