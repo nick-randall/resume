@@ -1,13 +1,23 @@
 import { Dispatch, FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface MenuItemProps {
   name: string;
+  handleMenuItemClicked?: (event: React.MouseEvent) => void
+
 }
 
-const MenuItem: FC<MenuItemProps> = ({ name }) => {
+const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked }) => {
+  const navigate = useNavigate();
+  const handleClick = (event: React.MouseEvent) => {
+    console.log("clicked " + name)
+    handleMenuItemClicked?.(event);
+    setTimeout(() => 
+    navigate(`/${name}`)
+    , 100);
+  };
   return (
-    <Link to={`/${name}`}>
+    <div onClick={handleClick}>
     <div
       style={{
         display: "flex",
@@ -23,7 +33,7 @@ const MenuItem: FC<MenuItemProps> = ({ name }) => {
       <img src={`./${name}.png`} className="menu-icon" alt={name} />
       <div className="menu-text">{name}</div>
     </div>
-    </Link>
+    </div>
   );
 };
 

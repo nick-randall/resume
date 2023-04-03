@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
 import BottomPlatform from "./BottomPlatform";
 import "./css/global.css";
 import "./css/text.css";
@@ -11,25 +11,38 @@ import TopPlatform from "./TopPlatform";
 import useMediaQuery from "./useMediaQuery";
 import MenuTriple from "./MenuTriple";
 import CurtainFade from "./CurtainFade";
+import { MenuOverlayProps } from "./MenuOverlay";
 
 interface HomePageProps {
-  className: string;
+  setMenuProps: Dispatch<SetStateAction<MenuOverlayProps>>;
 }
-const HomePage: FC<HomePageProps> = ({ className }) => {
+const HomePage: FC<HomePageProps> = ({ setMenuProps }) => {
   const { deviceType, screenHeight } = useMediaQuery();
   const [platformTop, setPlatformTop] = useState(0);
   const [numLiftRows, setNumLiftRows] = useState(0);
   const followTopOfArmsCheckInterval = useRef<NodeJS.Timer>();
   const topOfArmsRef = useRef<HTMLDivElement>(null);
+  const topOfContainerRef = useRef<HTMLDivElement>(null);
 
   const followTopOfArms = () => {
     const box = topOfArmsRef.current?.getBoundingClientRect();
-    if (box) setPlatformTop(box.top + window.scrollY);
+    if (box) {
+      setPlatformTop(box.top + window.scrollY);
+    }
+  };
+  const handleMenuItemClicked = (event: React.MouseEvent) => {
+    console.log("clicked")
+    const box = topOfContainerRef.current?.getBoundingClientRect();
+    if (box) {
+      console.log(`boxtop: ${box.top}, boxleft: ${box.left}`)
+      setMenuProps({ dx: box.left, dy: box.top, visible: true });
+    }
   };
   useEffect(() => {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
         followTopOfArms();
+        // followTopOfContainer();
       }, 2);
     window.addEventListener("resize", followTopOfArms);
   }, []);
@@ -43,7 +56,7 @@ const HomePage: FC<HomePageProps> = ({ className }) => {
   };
 
   return (
-    <CurtainFade >
+    <CurtainFade>
       <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr", height: "100vh" }}>
         <div />
         <div style={{ height: "100vh", position: "relative" }}>
@@ -59,10 +72,11 @@ const HomePage: FC<HomePageProps> = ({ className }) => {
 
           <LiftedContainer top={platformTop}>
             <div style={{ marginBottom: 8 }}>
-              <div className="flex-row space-between align-end">
+              <div className="flex-row space-between align-end" ref={topOfContainerRef} style={{backgroundColor: "red"}}>
                 <Logo />
+
                 {deviceType === "phone" && <Hamburger onPressed={() => {}} />}
-                {deviceType === "laptop" && <MenuTriple />}
+                {deviceType === "laptop" && <MenuTriple handleMenuItemClicked={handleMenuItemClicked} />}
               </div>
             </div>
             <TopPlatform>

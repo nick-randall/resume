@@ -1,15 +1,17 @@
-import { Dispatch, FC } from "react";
+import { FC } from "react";
 import MenuItem from "./MenuItem";
 
 interface MenuTripleProps {
+  handleMenuItemClicked?: (event: React.MouseEvent) => void
 }
 
-const MenuTriple: FC<MenuTripleProps> = ({}) => {
+const MenuTriple: FC<MenuTripleProps> = ({handleMenuItemClicked}) => {
+
   return (
     <div className="flex-row">
-      <MenuItem name="connect" />
-      <MenuItem name="projects" />
-      <MenuItem name="frameworks" />
+      <MenuItem name="connect" handleMenuItemClicked={handleMenuItemClicked} />
+      <MenuItem name="projects" handleMenuItemClicked={handleMenuItemClicked}/>
+      <MenuItem name="frameworks" handleMenuItemClicked={handleMenuItemClicked}/>
     </div>
   );
 };

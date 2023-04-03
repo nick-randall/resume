@@ -43,11 +43,11 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
     iterations.push({
       foldInExtent: prevExtent + finalFoldOutExtent,
       foldOutExtent: currExtent + finalFoldOutExtent,
-      animationDuration: getDuration(prevExtent, currExtent),
+      animationDuration: getDuration(prevExtent, currExtent) * iterations.length,
       animationTimingFunction: animationTimingFunctions.easeOut,
     });
   }
-  iterations[0].animationDuration = 0.7
+  // iterations[0].animationDuration = 0.7;
   const original = {
     foldInExtent: initialFoldInExtent,
     foldOutExtent: initialFoldInExtent,
@@ -56,7 +56,6 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   };
 
   iterations.unshift(original);
-  console.log(iterations);
   return iterations;
 };
 
