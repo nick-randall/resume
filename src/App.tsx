@@ -1,6 +1,8 @@
 import { FC } from "react";
 import HomePage from "./HomePage";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Transition } from "react-transition-group";
+import FrameworksPage from "./FrameworksPage";
 
 interface AppProps {}
 
@@ -8,7 +10,10 @@ const App: FC<AppProps> = () => {
   return (
     <Router>
       <Routes>
-        <Route path="*" element={<HomePage />} />
+        <Route path="*" element={<HomePage className="" />} />;
+        <Route path="/connect" element={<FrameworksPage />} />;
+        <Route path="/frameworks" element={<FrameworksPage />} />;
+        <Route path="/projects" element={<FrameworksPage />} />;
       </Routes>
     </Router>
   );

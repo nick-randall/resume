@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 interface MenuItemProps {
   name: string;
@@ -7,6 +8,7 @@ interface MenuItemProps {
 
 const MenuItem: FC<MenuItemProps> = ({ name, onClick }) => {
   return (
+    <Link to={`/${name}`}>
     <div
       style={{
         display: "flex",
@@ -18,11 +20,11 @@ const MenuItem: FC<MenuItemProps> = ({ name, onClick }) => {
         justifyContent: "space-between",
         height: "3.1rem"
       }}
-      onClick={onClick}
     >
       <img src={`./${name}.png`} className="menu-icon" alt={name} />
       <div className="menu-text">{name}</div>
     </div>
+    </Link>
   );
 };
 

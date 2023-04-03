@@ -9,6 +9,7 @@ interface BounceAnimationProps {
   finalFoldOutExtent: number;
   overreachExtent: number;
   reduceBounceSpeed: number;
+  initialDelay: number;
 }
 
 const animationTimingFunctions = {
@@ -24,7 +25,7 @@ const animationTimingFunctions = {
 let extentPairs = [];
 const iterations: LiftAnimationProps[] = [];
 const generateBounceAnimationValues = (props: BounceAnimationProps) => {
-  const { initialFoldInExtent, overreachExtent, reduceBounceSpeed, finalFoldOutExtent } = props;
+  const { initialFoldInExtent, overreachExtent, reduceBounceSpeed, finalFoldOutExtent, initialDelay } = props;
   let currExtent = overreachExtent / reduceBounceSpeed;
 
   iterations.push({
@@ -46,7 +47,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
       animationTimingFunction: animationTimingFunctions.easeOut,
     });
   }
-  const original = { foldInExtent: initialFoldInExtent, foldOutExtent: initialFoldInExtent, animationDuration: 1, animationTimingFunction: "" };
+  const original = { foldInExtent: initialFoldInExtent, foldOutExtent: initialFoldInExtent, animationDuration: initialDelay, animationTimingFunction: "" };
 
   iterations.unshift(original);
   console.log(iterations);
@@ -58,4 +59,5 @@ export default generateBounceAnimationValues({
   overreachExtent: 26,
   reduceBounceSpeed: 1.5,
   finalFoldOutExtent: 135,
+  initialDelay: 1.5,
 });
