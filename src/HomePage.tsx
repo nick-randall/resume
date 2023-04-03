@@ -58,7 +58,7 @@ function HomePage() {
             </div>
           </div>
           <TopPlatform>
-            <div style={{ lineHeight: 1 }}>
+            <div className="text-title"> 
               NICHOLAS
               <br />
               RANDALL
