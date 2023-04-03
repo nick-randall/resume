@@ -7,38 +7,16 @@ body {
   font-family: retro_gaming;
 }
 
-@font-face {
-  font-family: retro_gaming;
-  src: url("Retro Gaming.ttf");
-}
-
-.bump-up-down {
-  animation: bump-up-down 300ms ease;
-}
-
-@keyframes bump-up-down {
-  0% {
-    transform: translateY(0px);
-  }
-  30% {
-    transform: translateY(-10px);
-  }
-  70% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
 .flex-row {
   display: flex;
   flex-direction: row;
 }
+
 .flex-column {
   display: flex;
   flex-direction: column;
 }
+
 .space-between {
   justify-content: space-between;
 }
@@ -46,20 +24,15 @@ body {
 .align-center {
   align-items: center;
 }
+
 .justify-center {
   justify-content: center;
 }
+
 .align-end {
   align-items: end;
 }
-.menu-icon {
-  height: 2rem;
-  width: 2rem;
-}
-.menu-text {
-  line-height: 0.2;
-}
 
 .bottom-align {
-  bottom: 16.66666%;
+  bottom: 12.66666%;
 }

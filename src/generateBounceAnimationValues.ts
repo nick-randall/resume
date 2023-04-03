@@ -55,7 +55,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
 
 export default generateBounceAnimationValues({
   initialFoldInExtent: 100,
-  overreachExtent: 20,
-  reduceBounceSpeed: 1.2,
+  overreachExtent: 26,
+  reduceBounceSpeed: 1.5,
   finalFoldOutExtent: 135,
 });

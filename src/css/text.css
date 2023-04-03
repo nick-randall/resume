@@ -1,0 +1,16 @@
+
+.text-subtitle {
+  font-family: "DIN";
+  font-size: 15px;
+  color: white;
+  padding: 5px;
+}
+
+@font-face {
+  font-family: retro_gaming;
+  src: url("Retro Gaming.ttf");
+}
+
+.menu-text {
+  line-height: 0.2;
+}
