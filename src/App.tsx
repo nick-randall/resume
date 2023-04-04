@@ -17,7 +17,8 @@ const App: FC<AppProps> = () => {
   return (
     <>
       <Router>
-        <MenuOverlay {...menuProps} />
+        <div style={{position: "sticky", top: 10}}>
+        <MenuOverlay {...menuProps} /></div>
         <Routes>
           <Route path="/" element={<HomePage setMenuProps={setMenuProps} key={document.location.href} />} />;
           <Route path="/connect" element={<FrameworksPage key={document.location.href} />} />;

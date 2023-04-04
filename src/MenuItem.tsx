@@ -14,7 +14,7 @@ const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked }) => {
     handleMenuItemClicked?.(event);
     setTimeout(() => 
     navigate(`/${name}`)
-    , 100);
+    , 0);
   };
   return (
     <div onClick={handleClick}>

@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import BottomPlatform from "./BottomPlatform";
 import "./css/global.css";
 import "./css/text.css";
@@ -30,14 +30,14 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps }) => {
       setPlatformTop(box.top + window.scrollY);
     }
   };
-  const handleMenuItemClicked = (event: React.MouseEvent) => {
-    console.log("clicked")
+  const handleMenuItemClicked = useCallback(() => {
+    console.log("clicked");
     const box = topOfContainerRef.current?.getBoundingClientRect();
     if (box) {
-      console.log(`boxtop: ${box.top}, boxleft: ${box.left}`)
+      console.log(`boxtop: ${box.top}, boxleft: ${box.left}`);
       setMenuProps({ dx: box.left, dy: box.top, visible: true });
     }
-  };
+  },[setMenuProps]);
   useEffect(() => {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
@@ -45,7 +45,8 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps }) => {
         // followTopOfContainer();
       }, 2);
     window.addEventListener("resize", followTopOfArms);
-  }, []);
+    window.addEventListener("scroll", handleMenuItemClicked);
+  }, [handleMenuItemClicked]);
 
   useEffect(() => {
     setNumLiftRows(Math.floor(screenHeight / 170));
