@@ -72,9 +72,8 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps }) => {
 
           <LiftedContainer top={platformTop}>
             <div style={{ marginBottom: 8 }}>
-              <div className="flex-row space-between align-end" ref={topOfContainerRef} style={{backgroundColor: "red"}}>
+              <div className="flex-row space-between align-end" ref={topOfContainerRef}>
                 <Logo />
-
                 {deviceType === "phone" && <Hamburger onPressed={() => {}} />}
                 {deviceType === "laptop" && <MenuTriple handleMenuItemClicked={handleMenuItemClicked} />}
               </div>
