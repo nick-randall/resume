@@ -1,4 +1,4 @@
-import { FC, forwardRef } from "react";
+import { forwardRef } from "react";
 import useMediaQuery from "./useMediaQuery";
 import Logo from "./Logo";
 import Hamburger from "./Hamburger";
@@ -12,7 +12,7 @@ const MenuRow = forwardRef<HTMLDivElement, MenuRowProps>(({hidden}, forwardedRef
   const { deviceType } = useMediaQuery();
 
   return (
-      <div className="flex-row space-between align-end" ref={forwardedRef}>
+      <div className="flex-row space-between align-end" ref={forwardedRef} style={{width: "100%"}}>
         <Logo hidden={hidden}/>
         {deviceType === "phone" && <Hamburger hidden={hidden} onPressed={() => {}} />}
         {deviceType === "laptop" && <MenuTriple hidden={hidden} />}

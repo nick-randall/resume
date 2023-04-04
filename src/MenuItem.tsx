@@ -9,13 +9,13 @@ interface MenuItemProps {
 }
 
 const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked, hidden }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent) => {
     console.log("clicked " + name)
     handleMenuItemClicked?.(event);
-    setTimeout(() => 
-    navigate(`/${name}`)
-    , 0);
+    // setTimeout(() => 
+    // navigate(`/${name}`)
+    // , 0);
   };
   return (
     <div onClick={handleClick}>

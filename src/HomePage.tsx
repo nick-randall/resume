@@ -24,26 +24,31 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   const [numLiftRows, setNumLiftRows] = useState(0);
   const followTopOfArmsCheckInterval = useRef<NodeJS.Timer>();
   const topOfArmsRef = useRef<HTMLDivElement>(null);
-  const topOfContainerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const followTopOfArms = () => {
     const box = topOfArmsRef.current?.getBoundingClientRect();
     if (box) {
       setPlatformTop(box.top + window.scrollY);
     }
+    const menuBox = menuRef.current?.getBoundingClientRect();
+    if (menuBox) {
+      setMenuProps(prev => ({...prev, dy: menuBox.bottom}));
+    }
   };
-  const handleMenuItemClicked = useCallback(() => {
+  const handleScroll = useCallback(() => {
     setMenuProps(prevProps => {
-      if (prevProps.visible) return prevProps;
+      if (!prevProps.hidden) return prevProps;
 
-      const box = topOfContainerRef.current?.getBoundingClientRect();
+      const box = menuRef.current?.getBoundingClientRect();
       if (box) {
         console.log(`boxtop: ${box.top}, boxleft: ${box.left}`);
-        return { dx: box.left, dy: box.top, visible: true };
+        return { dx: box.left, dy: box.top, hidden: false };
       }
       return prevProps;
     });
   }, [setMenuProps]);
+
   useEffect(() => {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
@@ -51,8 +56,8 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
         // followTopOfContainer();
       }, 2);
     window.addEventListener("resize", followTopOfArms);
-    window.addEventListener("scroll", handleMenuItemClicked);
-  }, [handleMenuItemClicked]);
+    window.addEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   useEffect(() => {
     setNumLiftRows(Math.floor(screenHeight / 170));
@@ -64,9 +69,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
 
   return (
     <CurtainFade>
-      <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr", height: "100vh" }}>
-        <div />
-        <div style={{ height: "100vh", position: "relative" }}>
+      <>
           <BottomPlatform className="bottom-align">
             <Lift armFatness={7} armLength={60} totalNumberRows={numLiftRows} ref={topOfArmsRef} handleAnimationEnd={handleAnimationEnd} />
             <BottomPlatform
@@ -79,7 +82,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
 
           <LiftedContainer top={platformTop}>
             <div style={{ marginBottom: 8 }}>
-             {!menuOverlayProps.visible && <MenuRow ref={topOfContainerRef}/>}
+             {menuOverlayProps.hidden && <MenuRow ref={menuRef}/>}
             </div>
             <TopPlatform>
               <div className="text-title">
@@ -93,9 +96,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
               </div>
             </TopPlatform>
           </LiftedContainer>
-        </div>
-        <div />
-      </div>
+          </>
     </CurtainFade>
   );
 };
