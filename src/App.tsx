@@ -3,24 +3,18 @@ import HomePage from "./HomePage";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import FrameworksPage from "./FrameworksPage";
 import MenuOverlay, { MenuOverlayProps } from "./MenuOverlay";
-import MenuTriple from "./MenuTriple";
 
 interface AppProps {}
 
-interface Offset {
-  dx: number,
-  dy: number
-}
 
 const App: FC<AppProps> = () => {
   const [menuProps, setMenuProps] = useState<MenuOverlayProps>({dx: 0, dy: 0, visible: false});
   return (
     <>
       <Router>
-        <div style={{position: "sticky", top: 10}}>
-        <MenuOverlay {...menuProps} /></div>
+        <MenuOverlay {...menuProps} />
         <Routes>
-          <Route path="/" element={<HomePage setMenuProps={setMenuProps} key={document.location.href} />} />;
+          <Route path="/" element={<HomePage setMenuProps={setMenuProps} menuOverlayProps={menuProps} key={document.location.href} />} />;
           <Route path="/connect" element={<FrameworksPage key={document.location.href} />} />;
           <Route path="/frameworks" element={<FrameworksPage key={document.location.href} />} />;
           <Route path="/projects" element={<FrameworksPage />} key={document.location.href} />;

@@ -1,13 +1,14 @@
-import { Dispatch, FC } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import "./css/menu.css"
 
 interface MenuItemProps {
   name: string;
   handleMenuItemClicked?: (event: React.MouseEvent) => void
-
+  hidden?: boolean;
 }
 
-const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked }) => {
+const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked, hidden }) => {
   const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent) => {
     console.log("clicked " + name)
@@ -30,8 +31,8 @@ const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked }) => {
         height: "3.1rem",
       }}
     >
-      <img src={`./${name}.png`} className="menu-icon" alt={name} />
-      <div className="menu-text">{name}</div>
+      <img src={`./${name}.png`} className={`menu-icon ${hidden ? "hidden" : ""}`} alt={name}/>
+      <div className={`menu-text ${hidden ? "hidden" : ""}`}>{name}</div>
     </div>
     </div>
   );

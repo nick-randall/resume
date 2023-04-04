@@ -12,11 +12,13 @@ import useMediaQuery from "./useMediaQuery";
 import MenuTriple from "./MenuTriple";
 import CurtainFade from "./CurtainFade";
 import { MenuOverlayProps } from "./MenuOverlay";
+import MenuRow from "./MenuRow";
 
 interface HomePageProps {
   setMenuProps: Dispatch<SetStateAction<MenuOverlayProps>>;
+  menuOverlayProps: MenuOverlayProps;
 }
-const HomePage: FC<HomePageProps> = ({ setMenuProps }) => {
+const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   const { deviceType, screenHeight } = useMediaQuery();
   const [platformTop, setPlatformTop] = useState(0);
   const [numLiftRows, setNumLiftRows] = useState(0);
@@ -31,13 +33,17 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps }) => {
     }
   };
   const handleMenuItemClicked = useCallback(() => {
-    console.log("clicked");
-    const box = topOfContainerRef.current?.getBoundingClientRect();
-    if (box) {
-      console.log(`boxtop: ${box.top}, boxleft: ${box.left}`);
-      setMenuProps({ dx: box.left, dy: box.top, visible: true });
-    }
-  },[setMenuProps]);
+    setMenuProps(prevProps => {
+      if (prevProps.visible) return prevProps;
+
+      const box = topOfContainerRef.current?.getBoundingClientRect();
+      if (box) {
+        console.log(`boxtop: ${box.top}, boxleft: ${box.left}`);
+        return { dx: box.left, dy: box.top, visible: true };
+      }
+      return prevProps;
+    });
+  }, [setMenuProps]);
   useEffect(() => {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
@@ -73,11 +79,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps }) => {
 
           <LiftedContainer top={platformTop}>
             <div style={{ marginBottom: 8 }}>
-              <div className="flex-row space-between align-end" ref={topOfContainerRef}>
-                <Logo />
-                {deviceType === "phone" && <Hamburger onPressed={() => {}} />}
-                {deviceType === "laptop" && <MenuTriple handleMenuItemClicked={handleMenuItemClicked} />}
-              </div>
+             {!menuOverlayProps.visible && <MenuRow ref={topOfContainerRef}/>}
             </div>
             <TopPlatform>
               <div className="text-title">
