@@ -3,12 +3,13 @@ import useMediaQuery from "./useMediaQuery";
 import MenuRow from "./MenuRow";
 
 export interface MenuOverlayProps {
-  dx: number;
+  width: number;
   dy: number;
   hidden: boolean;
 }
 
-const MenuOverlay: FC<MenuOverlayProps> = ({ dx, dy, hidden }) => {
+const MenuOverlay: FC<MenuOverlayProps> = ({ width, dy, hidden }) => {
+  const {deviceType} = useMediaQuery();
   const headerRef = useRef<HTMLDivElement>(null);
   const [sticky, setSticky] = useState(false);
   const setToSticky = useCallback(() => {
@@ -26,11 +27,9 @@ const MenuOverlay: FC<MenuOverlayProps> = ({ dx, dy, hidden }) => {
     window.addEventListener("scroll", setToSticky);
   });
   return (
-    <div style={{ width: "100%", position: "relative" }}>
-      <div style={{ position: sticky ? "fixed" : "absolute", top: sticky ? 20 : dy, backgroundColor: "green", width: "100%" }} ref={headerRef}>
+      <div style={{ position: sticky ? "fixed" : "absolute", top: sticky ? 20 : dy, width: width }} ref={headerRef}>
         <MenuRow hidden={hidden} />
       </div>
-    </div>
   );
 };
 

@@ -5,18 +5,18 @@ import Hamburger from "./Hamburger";
 import MenuTriple from "./MenuTriple";
 
 interface MenuRowProps {
-  hidden?: boolean
+  hidden?: boolean;
 }
 
-const MenuRow = forwardRef<HTMLDivElement, MenuRowProps>(({hidden}, forwardedRef )=> {
+const MenuRow = forwardRef<HTMLDivElement, MenuRowProps>(({ hidden }, forwardedRef) => {
   const { deviceType } = useMediaQuery();
 
   return (
-      <div className="flex-row space-between align-end" ref={forwardedRef} style={{width: "100%"}}>
-        <Logo hidden={hidden}/>
-        {deviceType === "phone" && <Hamburger hidden={hidden} onPressed={() => {}} />}
-        {deviceType === "laptop" && <MenuTriple hidden={hidden} />}
-      </div>
+    <div className="flex-row space-between align-end inherit-width" ref={forwardedRef}>
+      <Logo hidden={hidden} />
+      {deviceType === "phone" && <Hamburger hidden={hidden} onPressed={() => {}} />}
+      {deviceType === "laptop" && <MenuTriple hidden={hidden} />}
+    </div>
   );
 });
 
