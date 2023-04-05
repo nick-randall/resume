@@ -25,16 +25,16 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   const topOfArmsRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const followTopOfArms = () => {
+  const followTopOfArms = useCallback(() => {
     const box = topOfArmsRef.current?.getBoundingClientRect();
     if (box) {
       setPlatformTop(box.top + window.scrollY);
     }
     const menuBox = menuRef.current?.getBoundingClientRect();
     if (menuBox) {
-      setMenuProps(prev => ({...prev, dy: menuBox.top}));
+      setMenuProps(prev => ({ ...prev, dy: menuBox.top }));
     }
-  };
+  }, [setMenuProps]);
   const handleScroll = useCallback(() => {
     setMenuProps(prevProps => {
       if (!prevProps.hidden) return prevProps;
@@ -52,11 +52,10 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
     if (!followTopOfArmsCheckInterval.current)
       followTopOfArmsCheckInterval.current = setInterval(() => {
         followTopOfArms();
-        // followTopOfContainer();
       }, 2);
     window.addEventListener("resize", followTopOfArms);
     window.addEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+  }, [followTopOfArms, handleScroll]);
 
   useEffect(() => {
     setNumLiftRows(Math.floor(screenHeight / 170));
@@ -69,7 +68,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   return (
     <CurtainFade>
       <CurtainFadeOnScroll>
-      <>
+        <div className="page">
           <BottomPlatform className="bottom-align">
             <Lift armFatness={7} armLength={60} totalNumberRows={numLiftRows} ref={topOfArmsRef} handleAnimationEnd={handleAnimationEnd} />
             <BottomPlatform
@@ -81,9 +80,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
           </BottomPlatform>
 
           <LiftedContainer top={platformTop}>
-            <div style={{ marginBottom: 8 }}>
-             {menuOverlayProps.hidden && <MenuRow ref={menuRef}/>}
-            </div>
+            <div style={{ marginBottom: 8 }}>{menuOverlayProps.hidden && <MenuRow ref={menuRef} />}</div>
             <TopPlatform>
               <div className="text-title">
                 NICHOLAS
@@ -96,8 +93,8 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
               </div>
             </TopPlatform>
           </LiftedContainer>
-          </>
-          </CurtainFadeOnScroll>
+        </div>
+      </CurtainFadeOnScroll>
     </CurtainFade>
   );
 };

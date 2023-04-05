@@ -9,7 +9,6 @@ export interface MenuOverlayProps {
 }
 
 const MenuOverlay: FC<MenuOverlayProps> = ({ width, dy, hidden }) => {
-  const {deviceType} = useMediaQuery();
   const headerRef = useRef<HTMLDivElement>(null);
   const [sticky, setSticky] = useState(false);
   const setToSticky = useCallback(() => {

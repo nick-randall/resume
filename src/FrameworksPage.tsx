@@ -1,16 +1,16 @@
-import { FC, useEffect, useState } from "react";
-import MenuTriple from "./MenuTriple";
-import CurtainFade from "./CurtainFade";
+import { FC } from "react";
 import useMediaQuery from "./useMediaQuery";
+import "./css/global.css"
 
 interface FrameworksPageProps {}
 
 const FrameworksPage: FC<FrameworksPageProps> = () => {
-  const {deviceType} = useMediaQuery()
   return (
-    <CurtainFade >
+
+    <div className="page">
+
       
-        {/* <MenuTriple  handleMenuItemClicked={() =>{}} /> */}<div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr" }}>
+        {/* <MenuTriple  handleMenuItemClicked={() =>{}} /><div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr" }}> */}
           <div/>
           <div>
         I've been a Flutter developer since early 2020. From humble beginnings I've come to know Flutter like the back of my hand.
@@ -20,7 +20,7 @@ const FrameworksPage: FC<FrameworksPageProps> = () => {
         As a React enthusiast, I’ve watched React and its supporting libraries grow, and my knowledge is deep and broad. Through my own projects I’ve developed an array of both trusted and unusual solutions to logic and layout challenges of any project.
         </div>
       </div>
-    </CurtainFade>
+    
   );
 };
 
