@@ -33,7 +33,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
     }
     const menuBox = menuRef.current?.getBoundingClientRect();
     if (menuBox) {
-      setMenuProps(prev => ({...prev, dy: menuBox.bottom}));
+      setMenuProps(prev => ({...prev, dy: menuBox.top}));
     }
   };
   const handleScroll = useCallback(() => {
