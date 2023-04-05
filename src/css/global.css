@@ -56,3 +56,13 @@ body {
 .page {
   height: 100vh;
 }
+
+p, h2 {
+  color: #cec4ff;
+  font-size: 16px;
+  font-family: DIN;
+}
+
+h2 {
+  font-size: 22px;
+}
