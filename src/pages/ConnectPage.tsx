@@ -5,7 +5,7 @@ interface ConnectPageProps {}
 
 const ConnectPage: FC<ConnectPageProps> = () => {
   return (
-    <div className="page">
+    <div className="page" id="connect">
       <PageTitle title="connect" />
     </div>
   );

@@ -18,7 +18,7 @@ const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked, hidden }) =>
     // , 0);
   };
   return (
-    <div onClick={handleClick}>
+    <a href={`#${name}`}>
     <div
       style={{
         display: "flex",
@@ -34,7 +34,7 @@ const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked, hidden }) =>
       <img src={`./${name}.png`} className={`menu-icon ${hidden ? "hidden" : ""}`} alt={name}/>
       <div className={`menu-text ${hidden ? "hidden" : ""}`}>{name}</div>
     </div>
-    </div>
+    </a>
   );
 };
 

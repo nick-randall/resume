@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 interface EndSpaceProps {}
 
-const EndSpace = styled.div`
-  height: 50px;
+const EndSpacer = styled.div`
+  height: 100px;
 `;
 
-export default EndSpace;
+export default EndSpacer;
