@@ -33,6 +33,10 @@ body {
   align-items: end;
 }
 
+.center-text{
+  text-align: center;
+}
+
 .bottom-align {
   bottom: 12.66666%;
 }
