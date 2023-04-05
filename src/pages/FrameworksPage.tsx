@@ -1,6 +1,7 @@
 import { FC } from "react";
 import "./../css/global.css";
 import PageTitle from "../PageTitle";
+import EndSpace from "../EndSpace";
 
 interface FrameworksPageProps {}
 
@@ -31,6 +32,7 @@ const FrameworksPage: FC<FrameworksPageProps> = () => {
           <h2>hasura</h2>
         </div>
       </div>
+      <EndSpace/>
     </div>
   );
 };
