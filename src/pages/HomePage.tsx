@@ -1,17 +1,17 @@
 import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
-import BottomPlatform from "./BottomPlatform";
-import "./css/global.css";
-import "./css/text.css";
-import "./css/menu.css";
-import Lift from "./Lift";
-import { LiftedContainer } from "./LiftedContainer";
-import TopPlatform from "./TopPlatform";
-import useMediaQuery from "./useMediaQuery";
-import MenuTriple from "./MenuTriple";
-import CurtainFade from "./CurtainFade";
-import { MenuOverlayProps } from "./MenuOverlay";
-import MenuRow from "./MenuRow";
-import CurtainFadeOnScroll from "./CurtainFadeOnScroll";
+import BottomPlatform from "../BottomPlatform";
+import "./../css/global.css";
+import "./../css/text.css";
+import "./../css/menu.css";
+import Lift from "../Lift";
+import { LiftedContainer } from "../LiftedContainer";
+import TopPlatform from "../TopPlatform";
+import useMediaQuery from "../useMediaQuery";
+import MenuTriple from "../MenuTriple";
+import CurtainFade from "../CurtainFade";
+import { MenuOverlayProps } from "../MenuOverlay";
+import MenuRow from "../MenuRow";
+import CurtainFadeOnScroll from "../CurtainFadeOnScroll";
 
 interface HomePageProps {
   setMenuProps: Dispatch<SetStateAction<MenuOverlayProps>>;

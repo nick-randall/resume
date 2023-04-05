@@ -1,8 +1,10 @@
 import { FC, useState } from "react";
-import HomePage from "./HomePage";
+import HomePage from "./pages/HomePage";
 import MenuOverlay, { MenuOverlayProps } from "./MenuOverlay";
 import useMediaQuery from "./useMediaQuery";
-import FrameworksPage from "./FrameworksPage";
+import FrameworksPage from "./pages/FrameworksPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import ConnectPage from "./pages/ConnectPage";
 
 interface AppProps {}
 
@@ -26,7 +28,10 @@ const App: FC<AppProps> = () => {
         <FrameworksPage />
         <div />
         <div />
-        {/* <ProjectsPage /> */}
+        <ProjectsPage />
+        <div />
+        <div />
+        <ConnectPage />
         <div />
       </div>
     </>

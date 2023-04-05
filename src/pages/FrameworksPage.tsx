@@ -1,6 +1,6 @@
 import { FC } from "react";
-import "./css/global.css";
-import PageTitle from "./PageTitle";
+import "./../css/global.css";
+import PageTitle from "../PageTitle";
 
 interface FrameworksPageProps {}
 

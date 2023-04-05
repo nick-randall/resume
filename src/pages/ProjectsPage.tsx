@@ -1,5 +1,5 @@
 import { FC } from "react";
-import PageTitle from "./PageTitle";
+import PageTitle from "../PageTitle";
 
 interface ProjectsPageProps {}
 
