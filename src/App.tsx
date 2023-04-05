@@ -15,9 +15,10 @@ const App: FC<AppProps> = () => {
         <div />
        
         <div style={{ height: "100%", position: "relative", width: "100%" }}>
+        <HomePage setMenuProps={setMenuProps} menuOverlayProps={menuProps} />
+
         <MenuOverlay {...menuProps} />
 
-          <HomePage setMenuProps={setMenuProps} menuOverlayProps={menuProps} />
 
           {/* <Routes>
           <Route path="/" element={<HomePage setMenuProps={setMenuProps} menuOverlayProps={menuProps} key={document.location.href} />} />;

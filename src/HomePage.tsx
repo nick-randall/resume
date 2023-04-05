@@ -3,16 +3,15 @@ import BottomPlatform from "./BottomPlatform";
 import "./css/global.css";
 import "./css/text.css";
 import "./css/menu.css";
-import Hamburger from "./Hamburger";
 import Lift from "./Lift";
 import { LiftedContainer } from "./LiftedContainer";
-import Logo from "./Logo";
 import TopPlatform from "./TopPlatform";
 import useMediaQuery from "./useMediaQuery";
 import MenuTriple from "./MenuTriple";
 import CurtainFade from "./CurtainFade";
 import { MenuOverlayProps } from "./MenuOverlay";
 import MenuRow from "./MenuRow";
+import CurtainFadeOnScroll from "./CurtainFadeOnScroll";
 
 interface HomePageProps {
   setMenuProps: Dispatch<SetStateAction<MenuOverlayProps>>;
@@ -69,6 +68,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
 
   return (
     <CurtainFade>
+      <CurtainFadeOnScroll>
       <>
           <BottomPlatform className="bottom-align">
             <Lift armFatness={7} armLength={60} totalNumberRows={numLiftRows} ref={topOfArmsRef} handleAnimationEnd={handleAnimationEnd} />
@@ -97,6 +97,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
             </TopPlatform>
           </LiftedContainer>
           </>
+          </CurtainFadeOnScroll>
     </CurtainFade>
   );
 };

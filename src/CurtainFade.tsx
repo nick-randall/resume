@@ -14,6 +14,7 @@ const CurtainFade: FC<CurtainFadeProps> = ({ children }) => {
     exiting: 1,
     exited: 0,
   };
+
   return (
     <Transition timeout={0} in={true} appear={true}>
       {state => {
