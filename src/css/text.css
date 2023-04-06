@@ -23,6 +23,24 @@
   line-height: 1;
 }
 
+
+p,
+h2 {
+  color: #cec4ff;
+  font-size: 16px;
+  font-family: D-DIN;
+
+}
+.flex {
+  display: flex;
+}
+
+h2{
+  max-width: 150px;
+  text-align: center;
+}
+
+
 h3 {
   font-size: 24px;
   color: #cec4ff;

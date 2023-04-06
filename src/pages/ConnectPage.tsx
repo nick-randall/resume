@@ -1,6 +1,8 @@
 import { FC } from "react";
 import PageTitle from "../PageTitle";
 import "./../css/global.css";
+import "./../css/text.css";
+
 
 interface ConnectPageProps {}
 

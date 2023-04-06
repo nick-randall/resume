@@ -1,8 +1,8 @@
 import { FC } from "react";
 import "./../css/global.css";
+import "./../css/text.css";
+
 import PageTitle from "../PageTitle";
-import EndSpacer from "../EndSpacer";
-import StartSpacer from "./StartSpacer";
 
 interface FrameworksPageProps {}
 
@@ -11,7 +11,7 @@ const FrameworksPage: FC<FrameworksPageProps> = () => {
     <div id="frameworks" className="page">
       <PageTitle title="frameworks" />
       {/* <StartSpacer /> */}
-      <div className="flex-column justify-center" style={{height: "100%"}}>
+      <div className="flex-column justify-center">
 
 
       <div className="flex-column align-center">

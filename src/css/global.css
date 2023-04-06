@@ -64,25 +64,6 @@ body {
   min-height: 120vh;
 }
 
-p,
-h2 {
-  color: #cec4ff;
-  font-size: 16px;
-  font-family: D-DIN;
-
-}
-.flex {
-  display: flex;
-}
-
-h2{
-  max-width: 150px;
-  text-align: center;
-}
-
-
-
-
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -92,4 +73,14 @@ h2{
 
 a {
   text-decoration: none;
+}
+
+.responsive-flex-box {
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 300px) {
+  .responsive-flex-box {
+    flex-direction: column;
+  }
 }
