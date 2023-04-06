@@ -22,3 +22,10 @@
 .text-title {
   line-height: 1;
 }
+
+h3 {
+  font-size: 24px;
+  color: #cec4ff;
+  font-family: D-DIN;
+  font-style: italic;
+}

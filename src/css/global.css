@@ -61,7 +61,7 @@ body {
 }
 
 .page {
-  height: 100vh;
+  min-height: 120vh;
 }
 
 p,
@@ -71,19 +71,16 @@ h2 {
   font-family: D-DIN;
 
 }
+.flex {
+  display: flex;
+}
+
 h2{
   max-width: 150px;
   text-align: center;
-
 }
 
-h3 {
-  font-size: 28px;
-  color: #cec4ff;
-  font-size: 16px;
-  font-family: D-DIN;
-  font-style: italic;
-}
+
 
 
 .grid {
