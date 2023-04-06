@@ -26,7 +26,7 @@ const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked, hidden }) =>
         alignItems: "center",
         paddingLeft: "2rem",
         color: "white",
-        fontFamily: "DIN",
+        fontFamily: "D-DIN",
         justifyContent: "space-between",
         height: "3.1rem",
       }}

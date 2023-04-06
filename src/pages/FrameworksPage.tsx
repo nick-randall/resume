@@ -2,16 +2,20 @@ import { FC } from "react";
 import "./../css/global.css";
 import PageTitle from "../PageTitle";
 import EndSpacer from "../EndSpacer";
+import StartSpacer from "./StartSpacer";
 
 interface FrameworksPageProps {}
 
 const FrameworksPage: FC<FrameworksPageProps> = () => {
   return (
-    <div id="frameworks">
+    <div id="frameworks" className="page">
       <PageTitle title="frameworks" />
+      {/* <StartSpacer /> */}
+      <div className="flex-column justify-center" style={{height: "100%"}}>
+
 
       <div className="flex-column align-center">
-        <img src="./flutter-logo.png" alt="" style={{ height: 60, paddingTop: 45}} />
+        <img src="./flutter-logo.png" alt="" style={{ height: 60}} />
         <h2>flutter</h2>
         <p>
           I've been developing Flutter apps since early 2020. Having worked extensively on numerous Flutter projects, I have deep theoretical and
@@ -23,6 +27,8 @@ const FrameworksPage: FC<FrameworksPageProps> = () => {
           As a React developer, my knowledge is deep and broad. I’ve developed an array of both trusted and unusual solutions to logic and layout
           challenges for a range of projects.
         </p>
+    <div style={{height: 20}}></div>
+    <h2>others:</h2>
         <div className="grid">
           <img src="./swift_logo.svg" alt="Swift logo" style={{ height: 60 }} />
           <img src="./spring_logo.png" alt="Spring Logo" style={{ height: 60 }} />
@@ -38,8 +44,9 @@ const FrameworksPage: FC<FrameworksPageProps> = () => {
         <img src="./hasura_logo.svg" alt="Hasura logo" style={{ height: 60 }} />
         <h2>hasura</h2> */}
       </div>
-      <EndSpacer />
-    </div>
+      {/* <EndSpacer /> */}
+    </div>    </div>
+
   );
 };
 

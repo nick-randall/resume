@@ -1,6 +1,6 @@
 
 .text-subtitle {
-  font-family: "DIN";
+  font-family: "D-DIN";
   font-size: 15px;
   color: white;
   padding: 5px;
@@ -9,6 +9,11 @@
 @font-face {
   font-family: retro_gaming;
   src: url("Retro Gaming.ttf");
+}
+
+@font-face {
+  font-family: D-DIN;
+  src: url("D-DIN.otf");
 }
 
 .menu-text {
