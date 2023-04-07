@@ -12,6 +12,7 @@ import CurtainFade from "../CurtainFade";
 import { MenuOverlayProps } from "../MenuOverlay";
 import MenuRow from "../MenuRow";
 import CurtainFadeOnScroll from "../CurtainFadeOnScroll";
+import NewLiftedContainer from "../NewLiftedContainer";
 
 interface HomePageProps {
   setMenuProps: Dispatch<SetStateAction<MenuOverlayProps>>;
@@ -79,20 +80,22 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
             </BottomPlatform>
           </BottomPlatform>
 
-          <LiftedContainer top={platformTop}>
-            <div style={{ marginBottom: 8 }}>{menuOverlayProps.hidden && <MenuRow ref={menuRef} />}</div>
-            <TopPlatform>
-              <div className="text-title">
-                NICHOLAS
-                <br />
-                RANDALL
-                <br />
-                <div className="text-subtitle">
-                  SOFTWARE <br /> DEVELOPER
+          <NewLiftedContainer>
+            <>
+              <div style={{ marginBottom: 8 }}>{menuOverlayProps.hidden && <MenuRow ref={menuRef} />}</div>
+              <TopPlatform>
+                <div className="text-title">
+                  NICHOLAS
+                  <br />
+                  RANDALL
+                  <br />
+                  <div className="text-subtitle">
+                    SOFTWARE <br /> DEVELOPER
+                  </div>
                 </div>
-              </div>
-            </TopPlatform>
-          </LiftedContainer>
+              </TopPlatform>
+            </>
+          </NewLiftedContainer>
         </div>
       </CurtainFadeOnScroll>
     </CurtainFade>

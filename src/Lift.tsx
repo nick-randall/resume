@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import ExpandableArms from "./ExpandableArms";
-import {bellowsAnimationValues} from "./generateBounceAnimationValues";
+import bellowsAnimationValues from "./generateBounceAnimationValues";
 
 interface LiftProps {
   armFatness: number;

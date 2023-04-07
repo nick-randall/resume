@@ -1,3 +1,5 @@
+import { initialDelayDuration } from "./constants";
+
 const durationConstant = 0.015;
 
 const currExtentisLessThanOne = (num: number) => (num < 0.5 && num > 0) || (num > -0.5 && num < 0);
@@ -60,18 +62,18 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   return iterations;
 };
 
-export const bellowsAnimationValues = generateBounceAnimationValues({
+export default generateBounceAnimationValues({
   initialFoldInExtent: 100,
   overreachExtent: 26,
   reduceBounceSpeed: 1.5,
   finalFoldOutExtent: 135,
-  initialDelay: 1.5,
+  initialDelay: initialDelayDuration / 1000,
 });
 
-export const platformAnimationValues =  generateBounceAnimationValues({
-  initialFoldInExtent: 0,
-  overreachExtent: 26,
-  reduceBounceSpeed: 1.5,
-  finalFoldOutExtent: 435,
-  initialDelay: 1.5,
-});
+// export const platformAnimationValues =  generateBounceAnimationValues({
+//   initialFoldInExtent: 0,
+//   overreachExtent: 26,
+//   reduceBounceSpeed: 1.5,
+//   finalFoldOutExtent: 435,
+//   initialDelay: 1.5,
+// });
