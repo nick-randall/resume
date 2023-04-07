@@ -8,3 +8,9 @@ type LiftAnimationProps = {
 }
 
 type Device = "phone" | "laptop";
+
+
+type TopContainerProps = {
+  top: number,
+  transitionDuration: number;
+}

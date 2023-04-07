@@ -4,7 +4,6 @@ import "./../css/global.css";
 import "./../css/text.css";
 import "./../css/menu.css";
 import Lift from "../Lift";
-import { LiftedContainer } from "../LiftedContainer";
 import TopPlatform from "../TopPlatform";
 import useMediaQuery from "../useMediaQuery";
 import MenuTriple from "../MenuTriple";
@@ -22,6 +21,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   const { deviceType, screenHeight } = useMediaQuery();
   const [platformTop, setPlatformTop] = useState(0);
   const [numLiftRows, setNumLiftRows] = useState(0);
+  const [topPlatformTransition, setTopPlatformTransition] = useState<TopContainerProps>();
   const followTopOfArmsCheckInterval = useRef<NodeJS.Timer>();
   const topOfArmsRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -49,18 +49,40 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
     });
   }, [setMenuProps]);
 
-  useEffect(() => {
-    if (!followTopOfArmsCheckInterval.current)
-      followTopOfArmsCheckInterval.current = setInterval(() => {
-        followTopOfArms();
-      }, 2);
-    window.addEventListener("resize", followTopOfArms);
-    window.addEventListener("scroll", handleScroll);
-  }, [followTopOfArms, handleScroll]);
+  // useEffect(() => {
+  //   if (!followTopOfArmsCheckInterval.current)
+  //     followTopOfArmsCheckInterval.current = setInterval(() => {
+  //       followTopOfArms();
+  //     }, 2);
+  //   window.addEventListener("resize", followTopOfArms);
+  //   window.addEventListener("scroll", handleScroll);
+  // }, [followTopOfArms, handleScroll]);
 
   useEffect(() => {
     setNumLiftRows(Math.floor(screenHeight / 170));
   }, [screenHeight]);
+
+  const adjustTopPlatformTransition = (transitionDuration: number) => {
+    const box = topOfArmsRef.current?.getBoundingClientRect();
+    console.log("adjust");
+    if (box) {
+      console.log("box");
+      setTopPlatformTransition({
+        top: box.top + window.scrollY,
+        transitionDuration,
+      });
+    }
+  };
+
+  const handleIterationEnd = (transitionDuration: number) => {
+    adjustTopPlatformTransition(transitionDuration);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      adjustTopPlatformTransition(0);
+    }, 10);
+  }, []);
 
   const handleAnimationEnd = () => {
     clearInterval(followTopOfArmsCheckInterval.current);
@@ -71,7 +93,14 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
       <CurtainFadeOnScroll>
         <div className="page">
           <BottomPlatform className="bottom-align">
-            <Lift armFatness={7} armLength={60} totalNumberRows={numLiftRows} ref={topOfArmsRef} handleAnimationEnd={handleAnimationEnd} />
+            <Lift
+              armFatness={7}
+              armLength={60}
+              totalNumberRows={numLiftRows}
+              ref={topOfArmsRef}
+              handleAnimationEnd={handleAnimationEnd}
+              onIterationEnd={handleIterationEnd}
+            />
             <BottomPlatform
               className="flex-column justify-center align-center"
               style={deviceType === "laptop" ? { width: "200%", left: "-50%" } : {}}
@@ -80,7 +109,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
             </BottomPlatform>
           </BottomPlatform>
 
-          <NewLiftedContainer>
+          <NewLiftedContainer topContainerProps={topPlatformTransition}>
             <>
               <div style={{ marginBottom: 8 }}>{menuOverlayProps.hidden && <MenuRow ref={menuRef} />}</div>
               <TopPlatform>
