@@ -1,7 +1,4 @@
-import { FC, useState } from "react";
-import  bellowsAnimationValues  from "./generateBounceAnimationValues";
-import { Transition } from "react-transition-group";
-import { initialDelayDuration } from "./constants";
+import { FC } from "react";
 
 interface NewLiftedContainerProps {
   children: JSX.Element;
@@ -16,7 +13,8 @@ const NewLiftedContainer: FC<NewLiftedContainerProps> = ({ children, topContaine
       className="top-container"
       style={{
         transition: `${topContainerProps?.transitionDuration}s`,
-        transform: `translateY(calc(-98% + ${topContainerProps?.top}px))`
+        transform: `translateY(calc(-98% + ${topContainerProps?.top}px))`,
+        position: "relative"
       }}
     >
       {children}

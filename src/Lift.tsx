@@ -6,11 +6,12 @@ interface LiftProps {
   armFatness: number;
   armLength: number;
   totalNumberRows: number;
+  mock?: boolean;
   handleAnimationEnd: () => void;
   onIterationEnd: (animationDuration: number) => void;
 }
 
-const Lift = forwardRef<HTMLDivElement, LiftProps>(({ armFatness, armLength, totalNumberRows, handleAnimationEnd, onIterationEnd }, forwardedRef) => {
+const Lift = forwardRef<HTMLDivElement, LiftProps>(({ armFatness, armLength, totalNumberRows, handleAnimationEnd, onIterationEnd, mock }, forwardedRef) => {
   const [currBounceAnimationValues, setCurrBounceAnimation] = useState(bellowsAnimationValues);
 
   const handleIterationEnd = () => {
@@ -34,6 +35,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({ armFatness, armLength, tot
           animationDuration={currBounceAnimationValues[0].animationDuration}
           animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
           totalNumberRows={totalNumberRows}
+          color={mock ? "transparent" : "white"}
           handleAnimationEnd={handleIterationEnd}
         />
       </div>
@@ -46,6 +48,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(({ armFatness, armLength, tot
           animationDuration={currBounceAnimationValues[0].animationDuration}
           animationTimingFunction={currBounceAnimationValues[0].animationTimingFunction}
           totalNumberRows={totalNumberRows}
+          color={mock ? "transparent" : "white"}
         />
       </div>
     </>
