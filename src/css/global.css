@@ -78,6 +78,7 @@ a {
 .responsive-flex-box {
   display: flex;
   flex-direction: row;
+  gap: 130px;
 }
 @media (max-width: 300px) {
   .responsive-flex-box {

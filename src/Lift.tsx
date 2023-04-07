@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import ExpandableArms from "./ExpandableArms";
-import bounceAnimationValues from "./generateBounceAnimationValues";
+import {bellowsAnimationValues} from "./generateBounceAnimationValues";
 
 interface LiftProps {
   armFatness: number;
@@ -14,7 +14,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(
     { armFatness, armLength, totalNumberRows, handleAnimationEnd },
     forwardedRef
   ) => {
-    const [currBounceAnimationValues, setCurrBounceAnimation] = useState(bounceAnimationValues);
+    const [currBounceAnimationValues, setCurrBounceAnimation] = useState(bellowsAnimationValues);
 
     const handleIterationEnd = () => {
       if (currBounceAnimationValues.length === 1) {

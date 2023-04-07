@@ -56,13 +56,22 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   };
 
   iterations.unshift(original);
+  console.log(iterations)
   return iterations;
 };
 
-export default generateBounceAnimationValues({
+export const bellowsAnimationValues = generateBounceAnimationValues({
   initialFoldInExtent: 100,
   overreachExtent: 26,
   reduceBounceSpeed: 1.5,
   finalFoldOutExtent: 135,
+  initialDelay: 1.5,
+});
+
+export const platformAnimationValues =  generateBounceAnimationValues({
+  initialFoldInExtent: 0,
+  overreachExtent: 26,
+  reduceBounceSpeed: 1.5,
+  finalFoldOutExtent: 435,
   initialDelay: 1.5,
 });

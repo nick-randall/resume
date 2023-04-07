@@ -31,7 +31,7 @@ const ProjectsPage: FC<ProjectsPageProps> = () => {
             </a>
           </div>
           <h3>Projects of my own:</h3>
-          <div style={{ display: "flex", flex: "0 0 100%" }}>
+          <div className="responsive-flex-box">
             <a href="https://play.google.com/store/apps/details?id=au.com.cocreations.psiappX">
               <img src="./psi_logo.png" alt="Psi App Logo" style={{ height: 65 }} />
               <h2>psi: test of telepathic abilities app</h2>
