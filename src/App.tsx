@@ -5,6 +5,7 @@ import useMediaQuery from "./useMediaQuery";
 import FrameworksPage from "./pages/FrameworksPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ConnectPage from "./pages/ConnectPage";
+import MockLayoutProvider, { MockLayoutContext } from "./AnimationValuesProvider";
 
 interface AppProps {}
 
@@ -16,6 +17,7 @@ const App: FC<AppProps> = () => {
   // },[])
 
   return (
+    <MockLayoutProvider>
     <>
       <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr", height: "100vh" }}>
         <div />
@@ -35,6 +37,7 @@ const App: FC<AppProps> = () => {
         <div />
       </div>
     </>
+    </MockLayoutProvider>
   );
 };
 

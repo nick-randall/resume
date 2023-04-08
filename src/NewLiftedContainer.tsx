@@ -1,12 +1,12 @@
 import { FC, useContext } from "react";
-import { MockLayoutContext } from "./topContainerAnimationProvider";
+import { MockLayoutContext } from "./AnimationValuesProvider";
 
 interface NewLiftedContainerProps {
   children: JSX.Element;
 }
 
 const NewLiftedContainer: FC<NewLiftedContainerProps> = ({ children }) => {
-  const { mockAnimationValues, allValuesReady, handleIterationEnd } = useContext(MockLayoutContext);
+  const { mockAnimationValues, allValuesReady, handleLiftIterationEnd } = useContext(MockLayoutContext);
 
   if (allValuesReady()) {
     const currAnimationValues = mockAnimationValues[0];
@@ -19,7 +19,7 @@ const NewLiftedContainer: FC<NewLiftedContainerProps> = ({ children }) => {
           transform: `translateY(calc(-98% + ${currAnimationValues.dy}px))`,
           position: "relative",
         }}
-        onTransitionEnd={handleIterationEnd}
+        onTransitionEnd={handleLiftIterationEnd}
       >
         {children}
       </div>

@@ -1,5 +1,6 @@
-import { forwardRef } from "react";
+import { forwardRef, useContext } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
+import { MockLayoutContext } from "./AnimationValuesProvider";
 
 type ExpandableArmsProps = {
   armLength: number;
@@ -10,7 +11,6 @@ type ExpandableArmsProps = {
   animationTimingFunction: string;
   totalNumberRows: number;
   currentRowNumber?: number;
-  color: string;
   handleAnimationEnd?: () => void;
 };
 
@@ -44,12 +44,12 @@ const SkeletonArm = styled.div<{ armLength: number }>`
   margin-top: 50%;
 `;
 
-const FatArm = styled.div<{ armLength: number; armFatness: number; height: number; top: number; left: number; color: string }>`
+const FatArm = styled.div<{ armLength: number; armFatness: number; height: number; top: number; left: number; }>`
   position: absolute;
   width: ${props => props.armFatness}px;
   height: ${props => props.height}px;
   margin-top: 50%;
-  background-color: ${props => props.color};
+  background-color: white;
   transform: translateY(calc(-50%)) translateX(-50%);
   top: ${props => props.top}px;
   left: ${props => props.left}px;
@@ -66,7 +66,6 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
     currentRowNumber = 1,
     totalNumberRows,
     isLeftArm,
-    color,
     handleAnimationEnd,
   } = props;
 
@@ -115,10 +114,10 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
         animation={animation}
         animationTimingFunction={animationTimingFunction}
         rotate={rotation}
-        onAnimationEnd={isFinalArm && handleAnimationEnd ? () => handleAnimationEnd() : undefined}
+        onAnimationEnd={isFinalArm ?  handleAnimationEnd : undefined}
       >
         <SkeletonArm armLength={armLength}>
-          <FatArm armFatness={armFatness} armLength={armLength} height={fatArmHeight} top={fatArmTop} left={0} {...ref} color={color} />
+          <FatArm armFatness={armFatness} armLength={armLength} height={fatArmHeight} top={fatArmTop} left={0} {...ref} />
           {currentRowNumber < totalNumberRows && <ExpandableArmsRecursive {...props} currentRowNumber={currentRowNumber + 1} ref={forwardedRef} />}
         </SkeletonArm>
       </ArmContainer>
@@ -126,9 +125,12 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
   );
 });
 const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: ExpandableArmsProps, forwardedRef) => {
-  const { armLength, armFatness, foldInExtent, foldOutExtent, animationDuration, animationTimingFunction, color, handleAnimationEnd } = props;
+  const { armLength, armFatness, foldInExtent, foldOutExtent, animationDuration, animationTimingFunction, handleAnimationEnd } = props;
   // const armTopOffset = armLength / 4;
   // const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
+  const { handleBellowsIterationEnd } = useContext(MockLayoutContext);
+
+
 
   const rotateClockwise = keyframes`
       0% {
@@ -159,9 +161,9 @@ const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: E
         rotate={foldOutExtent}
       >
         <SkeletonArm armLength={armLength}>
-          <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} color={color} />
+          <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0}  />
 
-          <ExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={forwardedRef} handleAnimationEnd={handleAnimationEnd} />
+          <ExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={forwardedRef} handleAnimationEnd={handleBellowsIterationEnd} />
         </SkeletonArm>
       </ArmContainer>
       <ArmContainer
@@ -174,7 +176,7 @@ const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: E
         rotate={-foldOutExtent}
       >
         <SkeletonArm armLength={armLength}>
-          <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} color={color} />
+          <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
           <ExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={false} />
         </SkeletonArm>

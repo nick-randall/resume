@@ -109,7 +109,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
             </BottomPlatform>
           </BottomPlatform>
 
-          <NewLiftedContainer topContainerProps={topPlatformTransition}>
+          <NewLiftedContainer >
             <>
               <div style={{ marginBottom: 8 }}>{menuOverlayProps.hidden && <MenuRow ref={menuRef} />}</div>
               <TopPlatform>

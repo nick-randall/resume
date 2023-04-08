@@ -1,17 +1,17 @@
 import { FC, forwardRef, useContext, useEffect, useRef } from "react";
 import styled, { keyframes, Keyframes } from "styled-components";
-import { MockLayoutContext } from "./topContainerAnimationProvider";
+import { MockLayoutContext } from "./AnimationValuesProvider";
 
 type MockExpandableArmsProps = {
   armLength: number;
   armFatness: number;
-  foldAngle: number;
   totalNumberRows: number;
   currentRowNumber?: number;
   handleAnimationEnd?: () => void;
 };
 
 type MockExpandableArmsRecursiveProps = MockExpandableArmsProps & {
+  foldAngle: number;
   isLeftArm: boolean;
 };
 
@@ -88,12 +88,12 @@ const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArm
 );
 const MockExpandableArms: FC<MockExpandableArmsProps> = props => {
   const { armLength, armFatness } = props;
-  const { liftAnimationValues, mockAnimationValues, updateMockAnimationValue, allValuesReady } = useContext(MockLayoutContext);
+  const { bellowsAnimationValues, mockAnimationValues, updateMockAnimationValue, allValuesReady } = useContext(MockLayoutContext);
   const topArmRef = useRef<HTMLDivElement>(null);
   // const armTopOffset = armLength / 4;
   // const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
   const currMockAnimationValue = mockAnimationValues[0];
-  const currBounceAnimationValue = liftAnimationValues.find(value => currMockAnimationValue.id === value.id);
+  const currBounceAnimationValue = bellowsAnimationValues.find(value => currMockAnimationValue.id === value.id);
   const foldAngle = currBounceAnimationValue?.foldOutExtent ?? 0;
   useEffect(() => {
     const box = topArmRef?.current?.getBoundingClientRect();
@@ -112,14 +112,14 @@ const MockExpandableArms: FC<MockExpandableArmsProps> = props => {
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={topArmRef} />
+          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={topArmRef} foldAngle={foldAngle}/>
         </SkeletonArm>
       </ArmContainer>
       <ArmContainer armLength={armLength} top={0} left={0} rotate={-foldAngle}>
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={false} />
+          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={false} foldAngle={foldAngle}/>
         </SkeletonArm>
       </ArmContainer>
     </>

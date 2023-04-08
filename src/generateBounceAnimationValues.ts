@@ -62,7 +62,6 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   };
 
   iterations.unshift(original);
-  console.log(iterations);
   return iterations;
 };
 
