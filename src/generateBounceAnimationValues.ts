@@ -1,4 +1,5 @@
 import { initialDelayDuration } from "./constants";
+import { v4 } from "uuid";
 
 const durationConstant = 0.015;
 
@@ -31,6 +32,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   let currExtent = overreachExtent / reduceBounceSpeed;
 
   iterations.push({
+    id: v4(),
     foldInExtent: initialFoldInExtent,
     foldOutExtent: finalFoldOutExtent + currExtent,
     animationDuration: getDuration(initialFoldInExtent, finalFoldOutExtent + overreachExtent),
@@ -43,6 +45,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
     currExtent = (currExtent / reduceBounceSpeed) * -1;
     extentPairs.push(currExtent + finalFoldOutExtent);
     iterations.push({
+      id: v4(),
       foldInExtent: prevExtent + finalFoldOutExtent,
       foldOutExtent: currExtent + finalFoldOutExtent,
       animationDuration: getDuration(prevExtent, currExtent) * iterations.length,
@@ -51,6 +54,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   }
   // iterations[0].animationDuration = 0.7;
   const original = {
+    id: v4(),
     foldInExtent: initialFoldInExtent,
     foldOutExtent: initialFoldInExtent,
     animationDuration: initialDelay,
@@ -58,7 +62,7 @@ const generateBounceAnimationValues = (props: BounceAnimationProps) => {
   };
 
   iterations.unshift(original);
-  console.log(iterations)
+  console.log(iterations);
   return iterations;
 };
 
