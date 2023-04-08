@@ -12,6 +12,7 @@ import { MenuOverlayProps } from "../MenuOverlay";
 import MenuRow from "../MenuRow";
 import CurtainFadeOnScroll from "../CurtainFadeOnScroll";
 import NewLiftedContainer from "../NewLiftedContainer";
+import MockExpandableArms from "../MockExpandableArms";
 
 interface HomePageProps {
   setMenuProps: Dispatch<SetStateAction<MenuOverlayProps>>;
@@ -101,6 +102,9 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
               handleAnimationEnd={handleAnimationEnd}
               onIterationEnd={handleIterationEnd}
             />
+            <MockExpandableArms armFatness={7}
+              armLength={60}
+              totalNumberRows={numLiftRows}/>
             <BottomPlatform
               className="flex-column justify-center align-center"
               style={deviceType === "laptop" ? { width: "200%", left: "-50%" } : {}}
