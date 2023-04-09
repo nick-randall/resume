@@ -7,15 +7,14 @@ interface LiftProps {
   armFatness: number;
   armLength: number;
   totalNumberRows: number;
-  mock?: boolean;
   handleAnimationEnd: () => void;
   onIterationEnd: (animationDuration: number) => void;
 }
 
 const Lift = forwardRef<HTMLDivElement, LiftProps>(
-  ({ armFatness, armLength, totalNumberRows, handleAnimationEnd, onIterationEnd, mock }, forwardedRef) => {
+  ({ armFatness, armLength, totalNumberRows, handleAnimationEnd, onIterationEnd }, forwardedRef) => {
     // const [bellowsAnimationValues, setCurrBounceAnimation] = useState(bellowsAnimationValues);
-    const { bellowsAnimationValues, handleBellowsIterationEnd } = useContext(MockLayoutContext);
+    const { bellowsAnimationValues, handleBellowsIterationEnd, allValuesReady } = useContext(MockLayoutContext);
     // const handleIterationEnd = () => {
     //   onIterationEnd(bellowsAnimationValues[0].animationDuration);
     //   if (bellowsAnimationValues.length === 1) {
@@ -24,6 +23,8 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(
     //     setCurrBounceAnimation(bellowsAnimationValues.slice(1));
     //   }
     // };
+    console.log(allValuesReady())
+    if (allValuesReady()) {
     return (
       <>
         <div style={{ position: "absolute", left: armLength }}>
@@ -53,6 +54,7 @@ const Lift = forwardRef<HTMLDivElement, LiftProps>(
       </>
     );
   }
+return <div/>}
 );
 
 export default Lift;

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import initialBellowsAnimationValues from "./generateBounceAnimationValues";
 
 export type AnimationProviderProps = {
@@ -35,11 +35,17 @@ const MockLayoutProvider = ({ children }: { children: JSX.Element }) => {
     setMockAnimationValues(updated);
     setNextLiftValue(mockAnimationValues.find(animationValue => animationValue.status === "notReady"));
   };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     handleBellowsIterationEnd();
+  //     handleLiftIterationEnd();
+  //   }, 3000);
+  // });
 
   const allValuesReady = () => mockAnimationValues.every(value => value.status === "ready");
 
   const handleLiftIterationEnd = () => {
-    console.log("lift iteration end");
+    console.log("lift iteration end " + mockAnimationValues.length)
 
     if (mockAnimationValues.length === 1) {
       // handleAnimationEnd();
@@ -49,7 +55,7 @@ const MockLayoutProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const handleBellowsIterationEnd = () => {
-    console.log("bellows iteration end");
+    console.log("bellows iteration end " + bellowsAnimationValues.length);
 
     if (bellowsAnimationValues.length === 1) {
       // handleAnimationEnd();

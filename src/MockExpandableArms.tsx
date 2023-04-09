@@ -42,7 +42,7 @@ const FatArm = styled.div<{ armLength: number; armFatness: number; height: numbe
   width: ${props => props.armFatness}px;
   height: ${props => props.height}px;
   margin-top: 50%;
-  background-color: "red";
+  background-color: red;
   transform: translateY(calc(-50%)) translateX(-50%);
   top: ${props => props.top}px;
   left: ${props => props.left}px;
@@ -64,9 +64,7 @@ const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArm
 
     const getNewMockAnimationData = useCallback(() => {
       const box = armRef?.current?.getBoundingClientRect();
-      console.log(nextLiftValue);
       if (box && nextLiftValue) {
-        console.log("updating mock animation value " + nextLiftValue.id);
         updateMockAnimationValue({
           id: nextLiftValue.id,
           dy: box.top + window.scrollY,
@@ -121,14 +119,13 @@ const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArm
 );
 const MockExpandableArms: FC<MockExpandableArmsProps> = props => {
   const { armLength, armFatness } = props;
-  const { bellowsAnimationValues, mockAnimationValues, nextLiftValue } = useContext(MockLayoutContext);
+  const { bellowsAnimationValues, nextLiftValue } = useContext(MockLayoutContext);
   const topArmRef = useRef<HTMLDivElement>(null);
   // const armTopOffset = armLength / 4;
   // const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
   const currBounceAnimationValue = bellowsAnimationValues.find(value => nextLiftValue?.id === value.id);
   const foldAngle = currBounceAnimationValue?.foldOutExtent ?? 0;
 
-  console.log(mockAnimationValues);
   return (
     <>
       <ArmContainer armLength={armLength} top={0} left={0} rotate={foldAngle}>

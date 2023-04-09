@@ -43,7 +43,6 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
 
       const box = menuRef.current?.getBoundingClientRect();
       if (box) {
-        console.log(`boxtop: ${box.top}, boxleft: ${box.left}`);
         return { width: box.width, dy: box.top, hidden: false };
       }
       return prevProps;

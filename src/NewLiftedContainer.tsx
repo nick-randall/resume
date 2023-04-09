@@ -15,7 +15,7 @@ const NewLiftedContainer: FC<NewLiftedContainerProps> = ({ children }) => {
       <div
         className="top-container"
         style={{
-          transition: `${currAnimationValues.animationDuration}s`,
+          transition: `${currAnimationValues.animationDuration}s ease-out`,
           transform: `translateY(calc(-98% + ${currAnimationValues.dy}px))`,
           position: "relative",
         }}
