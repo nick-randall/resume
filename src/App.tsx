@@ -5,7 +5,7 @@ import useMediaQuery from "./useMediaQuery";
 import FrameworksPage from "./pages/FrameworksPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ConnectPage from "./pages/ConnectPage";
-import MockLayoutProvider, { MockLayoutContext } from "./AnimationValuesProvider";
+import MockLayoutProvider from "./AnimationValuesProvider";
 
 interface AppProps {}
 

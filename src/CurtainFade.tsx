@@ -15,13 +15,7 @@ const CurtainFade: FC<CurtainFadeProps> = ({ children }) => {
     exited: 0,
   };
 
-  return (
-    <Transition timeout={0} in={true} appear={true}>
-      {state => {
-        return <div style={{ opacity: curtainOpacity[state], transition: `${pageFadeDuration}ms` }}>{children}</div>;
-      }}
-    </Transition>
-  );
+  return children;
 };
 
 export default CurtainFade;

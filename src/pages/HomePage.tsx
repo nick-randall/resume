@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
 import BottomPlatform from "../BottomPlatform";
 import "./../css/global.css";
 import "./../css/text.css";
@@ -20,34 +20,13 @@ interface HomePageProps {
 }
 const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   const { deviceType, screenHeight } = useMediaQuery();
-  const [platformTop, setPlatformTop] = useState(0);
   const [numLiftRows, setNumLiftRows] = useState(0);
-  const [topPlatformTransition, setTopPlatformTransition] = useState<TopContainerProps>();
   const followTopOfArmsCheckInterval = useRef<NodeJS.Timer>();
   const topOfArmsRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const followTopOfArms = useCallback(() => {
-    const box = topOfArmsRef.current?.getBoundingClientRect();
-    if (box) {
-      setPlatformTop(box.top + window.scrollY);
-    }
-    const menuBox = menuRef.current?.getBoundingClientRect();
-    if (menuBox) {
-      setMenuProps(prev => ({ ...prev, dy: menuBox.top }));
-    }
-  }, [setMenuProps]);
-  const handleScroll = useCallback(() => {
-    setMenuProps(prevProps => {
-      if (!prevProps.hidden) return prevProps;
 
-      const box = menuRef.current?.getBoundingClientRect();
-      if (box) {
-        return { width: box.width, dy: box.top, hidden: false };
-      }
-      return prevProps;
-    });
-  }, [setMenuProps]);
+
 
   // useEffect(() => {
   //   if (!followTopOfArmsCheckInterval.current)

@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useEffect, useState } from "react";
+import { forwardRef, useContext } from "react";
 import ExpandableArms from "./ExpandableArms";
 import { MockLayoutContext } from "./AnimationValuesProvider";
 
