@@ -1,5 +1,5 @@
-import { FC, forwardRef, useContext, useEffect, useRef } from "react";
-import styled, { keyframes, Keyframes } from "styled-components";
+import { FC, forwardRef, useCallback, useContext, useEffect, useRef } from "react";
+import styled from "styled-components";
 import { MockLayoutContext } from "./AnimationValuesProvider";
 
 type MockExpandableArmsProps = {
@@ -51,6 +51,7 @@ const FatArm = styled.div<{ armLength: number; armFatness: number; height: numbe
 const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArmsRecursiveProps>(
   (props: MockExpandableArmsRecursiveProps, forwardedRef) => {
     const { armLength, armFatness, currentRowNumber = 1, totalNumberRows, isLeftArm, foldAngle, handleAnimationEnd } = props;
+    const { nextLiftValue, updateMockAnimationValue } = useContext(MockLayoutContext);
 
     const armContainerTop = currentRowNumber > 2 ? armLength * 2 - armLength * 0.5 : armLength * 0.5;
     const fatArmTop = currentRowNumber === 0 ? armLength / 2 : armLength;
@@ -58,6 +59,26 @@ const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArm
 
     const fatArmHeight = currentRowNumber === 0 ? armLength : armLength * 2;
     const rowNumberIsEven = currentRowNumber % 2 === 1;
+
+    const armRef = useRef<HTMLDivElement | null>(null);
+
+    const getNewMockAnimationData = useCallback(() => {
+      const box = armRef?.current?.getBoundingClientRect();
+      console.log(nextLiftValue);
+      if (box && nextLiftValue) {
+        console.log("updating mock animation value " + nextLiftValue.id);
+        updateMockAnimationValue({
+          id: nextLiftValue.id,
+          dy: box.top + window.scrollY,
+          status: "ready",
+          animationDuration: nextLiftValue.animationDuration,
+        });
+      }
+    }, [nextLiftValue, updateMockAnimationValue]);
+
+    useEffect(() => {
+      getNewMockAnimationData();
+    }, [getNewMockAnimationData, nextLiftValue]);
 
     let rotation = 0;
     if (isLeftArm) {
@@ -78,7 +99,19 @@ const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArm
           <SkeletonArm armLength={armLength}>
             <FatArm armFatness={armFatness} armLength={armLength} height={fatArmHeight} top={fatArmTop} left={0} {...ref} />
             {currentRowNumber < totalNumberRows && (
-              <MockExpandableArmsRecursive {...props} currentRowNumber={currentRowNumber + 1} ref={forwardedRef} />
+              <MockExpandableArmsRecursive
+                {...props}
+                currentRowNumber={currentRowNumber + 1}
+                ref={node => {
+                  // https://stackoverflow.com/questions/62238716/using-ref-current-in-react-forwardref
+                  armRef.current = node;
+                  if (typeof forwardedRef === "function") {
+                    forwardedRef(node);
+                  } else if (forwardedRef) {
+                    forwardedRef.current = node;
+                  }
+                }}
+              />
             )}
           </SkeletonArm>
         </ArmContainer>
@@ -88,38 +121,28 @@ const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArm
 );
 const MockExpandableArms: FC<MockExpandableArmsProps> = props => {
   const { armLength, armFatness } = props;
-  const { bellowsAnimationValues, mockAnimationValues, updateMockAnimationValue, allValuesReady } = useContext(MockLayoutContext);
+  const { bellowsAnimationValues, mockAnimationValues, nextLiftValue } = useContext(MockLayoutContext);
   const topArmRef = useRef<HTMLDivElement>(null);
   // const armTopOffset = armLength / 4;
   // const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
-  const currMockAnimationValue = mockAnimationValues[0];
-  const currBounceAnimationValue = bellowsAnimationValues.find(value => currMockAnimationValue.id === value.id);
+  const currBounceAnimationValue = bellowsAnimationValues.find(value => nextLiftValue?.id === value.id);
   const foldAngle = currBounceAnimationValue?.foldOutExtent ?? 0;
-  useEffect(() => {
-    const box = topArmRef?.current?.getBoundingClientRect();
-    if (box && currBounceAnimationValue)
-      updateMockAnimationValue({
-        id: currBounceAnimationValue.id,
-        dy: box.top + window.scrollY,
-        status: "ready",
-        animationDuration: currBounceAnimationValue.animationDuration,
-      });
-  }, []);
 
+  console.log(mockAnimationValues);
   return (
     <>
       <ArmContainer armLength={armLength} top={0} left={0} rotate={foldAngle}>
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={topArmRef} foldAngle={foldAngle}/>
+          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={true} ref={topArmRef} foldAngle={foldAngle} />
         </SkeletonArm>
       </ArmContainer>
       <ArmContainer armLength={armLength} top={0} left={0} rotate={-foldAngle}>
         <SkeletonArm armLength={armLength}>
           <FatArm armFatness={armFatness} armLength={armLength} top={armLength / 2} height={armLength} left={0} />
 
-          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={false} foldAngle={foldAngle}/>
+          <MockExpandableArmsRecursive {...props} currentRowNumber={2} isLeftArm={false} foldAngle={foldAngle} />
         </SkeletonArm>
       </ArmContainer>
     </>

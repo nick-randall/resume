@@ -8,6 +8,7 @@ export type AnimationProviderProps = {
   handleLiftIterationEnd: () => void;
   handleBellowsIterationEnd: () => void;
   allValuesReady: () => boolean;
+  nextLiftValue?: MockAnimationValues;
 };
 
 const createMockAnimationValues = (bellowsAnimationValues: LiftAnimationProps[]): MockAnimationValues[] =>
@@ -27,9 +28,13 @@ export const MockLayoutContext = createContext<AnimationProviderProps>({
 const MockLayoutProvider = ({ children }: { children: JSX.Element }) => {
   const [mockAnimationValues, setMockAnimationValues] = useState(createMockAnimationValues(initialBellowsAnimationValues));
   const [bellowsAnimationValues, setBellowsAnimationValues] = useState(initialBellowsAnimationValues);
+  const [nextLiftValue, setNextLiftValue] = useState(mockAnimationValues.find(animationValue => animationValue.status === "notReady"));
 
-  const updateMockAnimationValue = (newValue: MockAnimationValues) =>
-    setMockAnimationValues(mockAnimationValues.map(value => (newValue.id === value.id ? { ...newValue, status: "ready" } : value)));
+  const updateMockAnimationValue = (newValue: MockAnimationValues) => {
+    const updated = mockAnimationValues.map(value => (newValue.id === value.id ? newValue : value));
+    setMockAnimationValues(updated);
+    setNextLiftValue(mockAnimationValues.find(animationValue => animationValue.status === "notReady"));
+  };
 
   const allValuesReady = () => mockAnimationValues.every(value => value.status === "ready");
 
@@ -60,6 +65,7 @@ const MockLayoutProvider = ({ children }: { children: JSX.Element }) => {
     handleBellowsIterationEnd,
     handleLiftIterationEnd,
     allValuesReady,
+    nextLiftValue,
   };
   return <MockLayoutContext.Provider value={providerValues}>{children} </MockLayoutContext.Provider>;
 };
