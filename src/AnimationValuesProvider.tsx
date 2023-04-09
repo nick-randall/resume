@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import initialBellowsAnimationValues from "./generateBounceAnimationValues";
 
 export type AnimationProviderProps = {
@@ -9,6 +9,7 @@ export type AnimationProviderProps = {
   handleBellowsIterationEnd: () => void;
   allValuesReady: () => boolean;
   nextLiftValue?: MockAnimationValues;
+  initialised: boolean;
 };
 
 const createMockAnimationValues = (bellowsAnimationValues: LiftAnimationProps[]): MockAnimationValues[] =>
@@ -23,24 +24,21 @@ export const MockLayoutContext = createContext<AnimationProviderProps>({
   handleLiftIterationEnd: () => {},
   handleBellowsIterationEnd: () => {},
   allValuesReady: () => false,
+  initialised: false
 });
 
 const MockLayoutProvider = ({ children }: { children: JSX.Element }) => {
   const [mockAnimationValues, setMockAnimationValues] = useState(createMockAnimationValues(initialBellowsAnimationValues));
   const [bellowsAnimationValues, setBellowsAnimationValues] = useState(initialBellowsAnimationValues);
   const [nextLiftValue, setNextLiftValue] = useState(mockAnimationValues.find(animationValue => animationValue.status === "notReady"));
+  const [initialised, setInitialised] = useState(false);
 
   const updateMockAnimationValue = (newValue: MockAnimationValues) => {
     const updated = mockAnimationValues.map(value => (newValue.id === value.id ? newValue : value));
     setMockAnimationValues(updated);
     setNextLiftValue(mockAnimationValues.find(animationValue => animationValue.status === "notReady"));
+   if (allValuesReady())  setInitialised(true)
   };
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     handleBellowsIterationEnd();
-  //     handleLiftIterationEnd();
-  //   }, 3000);
-  // });
 
   const allValuesReady = () => mockAnimationValues.every(value => value.status === "ready");
 
@@ -55,6 +53,7 @@ const MockLayoutProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const handleBellowsIterationEnd = () => {
+  
     console.log("bellows iteration end " + bellowsAnimationValues.length);
 
     if (bellowsAnimationValues.length === 1) {
@@ -72,6 +71,7 @@ const MockLayoutProvider = ({ children }: { children: JSX.Element }) => {
     handleLiftIterationEnd,
     allValuesReady,
     nextLiftValue,
+    initialised,
   };
   return <MockLayoutContext.Provider value={providerValues}>{children} </MockLayoutContext.Provider>;
 };
