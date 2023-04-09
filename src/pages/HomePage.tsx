@@ -62,27 +62,27 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
     setNumLiftRows(Math.floor(screenHeight / 170));
   }, [screenHeight]);
 
-  const adjustTopPlatformTransition = (transitionDuration: number) => {
-    const box = topOfArmsRef.current?.getBoundingClientRect();
-    console.log("adjust");
-    if (box) {
-      console.log("box");
-      setTopPlatformTransition({
-        top: box.top + window.scrollY,
-        transitionDuration,
-      });
-    }
-  };
+  // const adjustTopPlatformTransition = (transitionDuration: number) => {
+  //   const box = topOfArmsRef.current?.getBoundingClientRect();
+  //   console.log("adjust");
+  //   if (box) {
+  //     console.log("box");
+  //     setTopPlatformTransition({
+  //       top: box.top + window.scrollY,
+  //       transitionDuration,
+  //     });
+  //   }
+  // };
 
-  const handleIterationEnd = (transitionDuration: number) => {
-    adjustTopPlatformTransition(transitionDuration);
-  };
+  // const handleIterationEnd = (transitionDuration: number) => {
+  //   adjustTopPlatformTransition(transitionDuration);
+  // };
 
-  useEffect(() => {
-    setTimeout(() => {
-      adjustTopPlatformTransition(0);
-    }, 10);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     adjustTopPlatformTransition(0);
+  //   }, 10);
+  // }, []);
 
   const handleAnimationEnd = () => {
     clearInterval(followTopOfArmsCheckInterval.current);
@@ -99,7 +99,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
               totalNumberRows={numLiftRows}
               ref={topOfArmsRef}
               handleAnimationEnd={handleAnimationEnd}
-              onIterationEnd={handleIterationEnd}
+              onIterationEnd={()=>{}}
             />
             <MockExpandableArms armFatness={7}
               armLength={60}

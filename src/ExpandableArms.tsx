@@ -126,8 +126,6 @@ const ExpandableArmsRecursive = forwardRef<HTMLDivElement, ExpandableArmsRecursi
 });
 const ExpandableArms = forwardRef<HTMLDivElement, ExpandableArmsProps>((props: ExpandableArmsProps, forwardedRef) => {
   const { armLength, armFatness, foldInExtent, foldOutExtent, animationDuration, animationTimingFunction, handleAnimationEnd } = props;
-  // const armTopOffset = armLength / 4;
-  // const armBoxLeftOffset = (depth: number) => armLength * depth * 0.5 - armTopOffset;
   const { handleBellowsIterationEnd } = useContext(MockLayoutContext);
 
 

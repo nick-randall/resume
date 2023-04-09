@@ -7,18 +7,20 @@ interface NewLiftedContainerProps {
 }
 
 const NewLiftedContainer: FC<NewLiftedContainerProps> = ({ children }) => {
-  const { initialised, mockAnimationValues, allValuesReady, handleLiftIterationEnd } = useContext(MockLayoutContext);
-
+  const { mockAnimationValues, allValuesReady, handleLiftIterationEnd } = useContext(MockLayoutContext);
+  const [initialised, setInitialised] = useState(false);
 
   if (allValuesReady()) {
+    // setTimeout(() => setInitialised(true), 20);
+
     const currAnimationValues = mockAnimationValues[0];
-    const ex = initialised ? 0 : 1
+    const ex = initialised ? 0 : 1;
     return (
       <div
         className="top-container"
         style={{
-          transition: initialised ? `${currAnimationValues.animationDuration}s ease-out` : "",
-          transform: `translateY(calc(-98% + ${currAnimationValues.dy + ex}px))`,
+          transition: `${currAnimationValues.animationDuration}s ease-out`,
+          transform: `translateY(calc(-98% + ${currAnimationValues.dy}px))`,
           position: "relative",
         }}
         onTransitionEnd={handleLiftIterationEnd}

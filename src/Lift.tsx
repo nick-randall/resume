@@ -1,6 +1,5 @@
 import { forwardRef, useContext, useEffect, useState } from "react";
 import ExpandableArms from "./ExpandableArms";
-import bellowsAnimationValues from "./generateBounceAnimationValues";
 import { MockLayoutContext } from "./AnimationValuesProvider";
 
 interface LiftProps {
@@ -13,17 +12,8 @@ interface LiftProps {
 
 const Lift = forwardRef<HTMLDivElement, LiftProps>(
   ({ armFatness, armLength, totalNumberRows, handleAnimationEnd, onIterationEnd }, forwardedRef) => {
-    // const [bellowsAnimationValues, setCurrBounceAnimation] = useState(bellowsAnimationValues);
     const { bellowsAnimationValues, handleBellowsIterationEnd, allValuesReady } = useContext(MockLayoutContext);
-    // const handleIterationEnd = () => {
-    //   onIterationEnd(bellowsAnimationValues[0].animationDuration);
-    //   if (bellowsAnimationValues.length === 1) {
-    //     handleAnimationEnd();
-    //   } else {
-    //     setCurrBounceAnimation(bellowsAnimationValues.slice(1));
-    //   }
-    // };
-    console.log(allValuesReady())
+
     if (allValuesReady()) {
     return (
       <>
