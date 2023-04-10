@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 interface TitleContainerProps {
+  deviceType: Device
 }
 
 const TitleContainer = styled.div<TitleContainerProps>`
@@ -12,7 +13,7 @@ const TitleContainer = styled.div<TitleContainerProps>`
       border-radius: 4px;
       display: flex;
       color: #FFF500;
-      font-size: 30px;
+      font-size: ${props => props.deviceType === "laptop" ?  "30px" : "15px"};
     `
  
 export default TitleContainer;

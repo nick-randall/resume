@@ -2,7 +2,17 @@
   height: 2rem;
   width: 2rem;
 }
+.menu-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 1rem;
+color: white;
+font-family: D-DIN;
+justify-content: space-between;
+height: 3.1rem;
 
+}
 .hidden {
   opacity: 0;
 }
