@@ -18,8 +18,8 @@ const App: FC<AppProps> = () => {
 
   return (
     <MockLayoutProvider>
-    <>
-      <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr" }}>
+    <div className="app">
+      <div style={{ display: "grid", gridTemplateColumns: deviceType === "phone" ? "1fr 6fr 1fr" : "1fr 3fr 1fr" }} >
         <div />
         <div style={{ height: "100%", position: "relative", width: "100%", display: "flex", flexDirection: "column" }}>
           <HomePage setMenuProps={setMenuProps} menuOverlayProps={menuProps} />
@@ -36,7 +36,7 @@ const App: FC<AppProps> = () => {
         <ConnectPage />
         <div />
       </div>
-    </>
+    </div>
     </MockLayoutProvider>
   );
 };
