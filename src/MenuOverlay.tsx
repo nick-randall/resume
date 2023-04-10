@@ -13,7 +13,7 @@ const MenuOverlay: FC<MenuOverlayProps> = ({ width, dy, hidden }) => {
   const [sticky, setSticky] = useState(false);
   const setToSticky = useCallback(() => {
     if (headerRef.current) {
-      const stickyPoint = headerRef.current.offsetTop - 20;
+      const stickyPoint = headerRef.current.offsetTop - 10;
       if (window.pageYOffset > stickyPoint) {
         setSticky(true);
       }

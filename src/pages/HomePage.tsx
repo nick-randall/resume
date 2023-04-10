@@ -55,30 +55,8 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   }, [followTopOfArms, handleScroll]);
 
   useEffect(() => {
-    setNumLiftRows(Math.floor(screenHeight / 160));
+    setNumLiftRows(Math.floor(screenHeight / 165));
   }, [screenHeight]);
-
-  // const adjustTopPlatformTransition = (transitionDuration: number) => {
-  //   const box = topOfArmsRef.current?.getBoundingClientRect();
-  //   console.log("adjust");
-  //   if (box) {
-  //     console.log("box");
-  //     setTopPlatformTransition({
-  //       top: box.top + window.scrollY,
-  //       transitionDuration,
-  //     });
-  //   }
-  // };
-
-  // const handleIterationEnd = (transitionDuration: number) => {
-  //   adjustTopPlatformTransition(transitionDuration);
-  // };
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     adjustTopPlatformTransition(0);
-  //   }, 10);
-  // }, []);
 
   const handleAnimationEnd = () => {
     clearInterval(followTopOfArmsCheckInterval.current);
