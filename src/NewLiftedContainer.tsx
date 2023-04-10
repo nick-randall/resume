@@ -1,6 +1,5 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 import { MockLayoutContext } from "./AnimationValuesProvider";
-import { Transition } from "react-transition-group";
 
 interface NewLiftedContainerProps {
   children: JSX.Element;
@@ -8,13 +7,11 @@ interface NewLiftedContainerProps {
 
 const NewLiftedContainer: FC<NewLiftedContainerProps> = ({ children }) => {
   const { mockAnimationValues, allValuesReady, handleLiftIterationEnd } = useContext(MockLayoutContext);
-  const [initialised, setInitialised] = useState(false);
 
   if (allValuesReady()) {
     // setTimeout(() => setInitialised(true), 20);
 
     const currAnimationValues = mockAnimationValues[0];
-    const ex = initialised ? 0 : 1;
     return (
       <div
         className="top-container"
