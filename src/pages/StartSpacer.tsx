@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 const StartSpacer = styled.div`
-  height: 100px;
+  height: 20px;
 `;
 
 export default StartSpacer;
