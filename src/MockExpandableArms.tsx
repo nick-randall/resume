@@ -74,9 +74,9 @@ const MockExpandableArmsRecursive = forwardRef<HTMLDivElement, MockExpandableArm
     }, [nextLiftValue, updateMockAnimationValue]);
 
     useEffect(() => {
-      setTimeout(() => {
+      // setTimeout(() => {
         getNewMockAnimationData();
-      }, 1);
+      // }, 100);
     }, [getNewMockAnimationData, nextLiftValue]);
 
     let rotation = 0;

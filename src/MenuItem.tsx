@@ -24,7 +24,7 @@ const MenuItem: FC<MenuItemProps> = ({ name, handleMenuItemClicked, hidden }) =>
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        paddingLeft: "2rem",
+        padding: "1rem",
         color: "white",
         fontFamily: "D-DIN",
         justifyContent: "space-between",

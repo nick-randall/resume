@@ -8,7 +8,7 @@ interface MenuTripleProps {
 
 const MenuTriple: FC<MenuTripleProps> = ({ handleMenuItemClicked, hidden }) => {
   return (
-    <div className="flex-row">
+    <div className="flex-row align-center">
       <MenuItem name="frameworks" handleMenuItemClicked={handleMenuItemClicked} hidden={hidden} />
       <MenuItem name="projects" handleMenuItemClicked={handleMenuItemClicked} hidden={hidden} />
       <MenuItem name="connect" handleMenuItemClicked={handleMenuItemClicked} hidden={hidden} />

@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import BottomPlatform from "../BottomPlatform";
 import "./../css/global.css";
 import "./../css/text.css";
@@ -25,20 +25,37 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
   const topOfArmsRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-
-
-
-  // useEffect(() => {
-  //   if (!followTopOfArmsCheckInterval.current)
-  //     followTopOfArmsCheckInterval.current = setInterval(() => {
-  //       followTopOfArms();
-  //     }, 2);
-  //   window.addEventListener("resize", followTopOfArms);
-  //   window.addEventListener("scroll", handleScroll);
-  // }, [followTopOfArms, handleScroll]);
+  const followTopOfArms = useCallback(() => {
+    const menuBox = menuRef.current?.getBoundingClientRect();
+    if (menuBox) {
+      setMenuProps(prev => ({ ...prev, dy: menuBox.top }));
+    }
+  }, [setMenuProps]);
+  const handleScroll = useCallback(() => {
+    setMenuProps(prevProps => {
+      if (!prevProps.hidden) return prevProps;
+      followTopOfArms();
+      const box = menuRef.current?.getBoundingClientRect();
+      if (box) {
+        return { width: box.width, dy: box.top, hidden: false };
+      }
+      return prevProps;
+    });
+  }, [followTopOfArms, setMenuProps]);
 
   useEffect(() => {
-    setNumLiftRows(Math.floor(screenHeight / 170));
+    if (!followTopOfArmsCheckInterval.current)
+      followTopOfArmsCheckInterval.current = setInterval(() => {
+        followTopOfArms();
+      }, 200);
+    followTopOfArms();
+    // setTimeout(followTopOfArms, 20)
+    window.addEventListener("resize", followTopOfArms);
+    window.addEventListener("scroll", handleScroll);
+  }, [followTopOfArms, handleScroll]);
+
+  useEffect(() => {
+    setNumLiftRows(Math.floor(screenHeight / 160));
   }, [screenHeight]);
 
   // const adjustTopPlatformTransition = (transitionDuration: number) => {
@@ -78,11 +95,9 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
               totalNumberRows={numLiftRows}
               ref={topOfArmsRef}
               handleAnimationEnd={handleAnimationEnd}
-              onIterationEnd={()=>{}}
+              onIterationEnd={() => {}}
             />
-            <MockExpandableArms armFatness={7}
-              armLength={60}
-              totalNumberRows={numLiftRows}/>
+            <MockExpandableArms armFatness={7} armLength={60} totalNumberRows={numLiftRows} />
             <BottomPlatform
               className="flex-column justify-center align-center"
               style={deviceType === "laptop" ? { width: "200%", left: "-50%" } : {}}
@@ -91,7 +106,7 @@ const HomePage: FC<HomePageProps> = ({ setMenuProps, menuOverlayProps }) => {
             </BottomPlatform>
           </BottomPlatform>
 
-          <NewLiftedContainer >
+          <NewLiftedContainer>
             <>
               <div style={{ marginBottom: 8 }}>{menuOverlayProps.hidden && <MenuRow ref={menuRef} />}</div>
               <TopPlatform>
